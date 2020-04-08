@@ -10,29 +10,15 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import GridSearchCV 
 from sklearn.model_selection import RandomizedSearchCV
+import load_data
+import save_output
 
 name = 'QDAClassifier'
+dim_reduction = 'NONE'
 
 #load data
 
-train_dataset_path = '/home/users/ubaldi/TESI_PA/data/database_training2.csv'
-test_dataset_path = '/home/users/ubaldi/TESI_PA/data/database_nostro_without_nan.csv'
-
-df_train = pd.read_csv(train_dataset_path)
-df_test = pd.read_csv(test_dataset_path)
-
-df_train.rename(columns={'Survival.time (months)':'Surv_time_months'}, inplace=True)
-df_test.rename(columns={'Survival.time (months)':'Surv_time_months'}, inplace=True)
-
-
-df_train.rename(columns={'Overall.Stage':'Overall_Stage'}, inplace=True)
-df_test.rename(columns={'Overall.Stage':'Overall_Stage'}, inplace=True)
-
-public_data = df_train.drop(['Histology', 'Surv_time_months', 'OS', 'deadstatus.event','Overall_Stage'], axis=1)
-PA_data = df_test.drop(['Histology', 'Surv_time_months', 'OS', 'deadstatus.event','Overall_Stage'], axis=1)
-
-public_labels = df_train.Histology
-PA_labels = df_test.Histology
+public_data, public_labels = load_data.function_load_data()
 
 encoder = LabelEncoder()
 
@@ -81,14 +67,4 @@ for i in range(1, 21):
 
 #create folder and save
 
-import os
-
-outname = f'best_params_{name}.csv'
-
-outdir = '/home/users/ubaldi/TESI_PA/result_CV/Public/large_space_change_expl_TTS_rand_state/QDAClassifier_stability'
-if not os.path.exists(outdir):
-    os.makedirs(outdir)
-
-fullname = os.path.join(outdir, outname)    
-
-df.to_csv(fullname)
+save_output.function_save_output(df_tot, dim_reduction, name)
