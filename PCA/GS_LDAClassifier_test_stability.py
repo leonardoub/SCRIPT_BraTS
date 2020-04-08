@@ -65,6 +65,25 @@ for i in range(1, 21):
 
 #df.to_csv('/home/users/ubaldi/TESI_PA/result_CV/large_space_NO_fixed_rand_state/LDAClassifier_stability/best_params_LDAClassifier.csv')
 
+#insert sccuracy mean and std
+
+acc_train_mean = df['accuracy_train'].mean()
+acc_test_mean = df['accuracy_test'].mean()
+
+acc_train_std = df['accuracy_train'].std()
+acc_test_std = df['accuracy_test'].std()
+
+
+df_train_acc_mean = pd.DataFrame([{'accuracy_train_mean':acc_train_mean}])
+df_train_acc_std = pd.DataFrame([{'accuracy_train_std':acc_train_std}])
+
+
+df_test_acc_mean = pd.DataFrame([{'accuracy_test_mean':acc_test_mean}])
+df_test_acc_std = pd.DataFrame([{'accuracy_test_std':acc_test_std}])
+
+
+df_tot = pd.concat([df, df_train_acc_mean, df_train_acc_std, df_test_acc_mean, df_test_acc_std], axis=1)
+
 #create folder and save
 
 save_output.function_save_output(df_tot, dim_reduction, name)
