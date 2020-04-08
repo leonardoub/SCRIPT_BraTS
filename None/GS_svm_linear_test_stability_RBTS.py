@@ -12,29 +12,15 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import GridSearchCV 
 from sklearn.model_selection import RandomizedSearchCV
+import load_data
+import save_output
 
-name = 'NONE_svm_lin_RBTS'
+name = 'svm_lin_RBTS'
+dim_reduction = 'NONE'
 
 #load data
 
-train_dataset_path = '/home/users/ubaldi/TESI_PA/data/database_training2.csv'
-test_dataset_path = '/home/users/ubaldi/TESI_PA/data/database_nostro_without_nan.csv'
-
-df_train = pd.read_csv(train_dataset_path)
-df_test = pd.read_csv(test_dataset_path)
-
-df_train.rename(columns={'Survival.time (months)':'Surv_time_months'}, inplace=True)
-df_test.rename(columns={'Survival.time (months)':'Surv_time_months'}, inplace=True)
-
-
-df_train.rename(columns={'Overall.Stage':'Overall_Stage'}, inplace=True)
-df_test.rename(columns={'Overall.Stage':'Overall_Stage'}, inplace=True)
-
-public_data = df_train.drop(['Histology', 'Surv_time_months', 'OS', 'deadstatus.event','Overall_Stage'], axis=1)
-PA_data = df_test.drop(['Histology', 'Surv_time_months', 'OS', 'deadstatus.event','Overall_Stage'], axis=1)
-
-public_labels = df_train.Histology
-PA_labels = df_test.Histology
+public_data, public_labels = load_data.function_load_data()
 
 encoder = LabelEncoder()
 
@@ -112,15 +98,6 @@ df_tot = pd.concat([df, df_train_acc_mean, df_train_acc_std, df_test_acc_mean, d
 
 #create folder and save
 
-import os
+save_output.function_save_output(df_tot, dim_reduction, name)
 
-outname = f'best_params_{name}.csv'
-
-outdir = '/home/users/ubaldi/TESI_PA/result_CV/3_classes_H/Public/large_space_change_expl_all_rand_state/lin_svm_stability'
-if not os.path.exists(outdir):
-    os.makedirs(outdir)
-
-fullname = os.path.join(outdir, outname)    
-
-df_tot.to_csv(fullname)
 
