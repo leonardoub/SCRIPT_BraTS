@@ -58,10 +58,10 @@ data_patterns_without_NAN_LGG = data_LGG.dropna(axis=0) #sono 44/65
 
 #merging datasetd
 data = pd.concat([data_GBM, data_LGG], ignore_index=True)
-data.to_csv('/home/leonardo/Scrivania/BRATS_data/data_with_histologies.csv')
+#data.to_csv('/home/leonardo/Scrivania/BRATS_data/data_with_histologies.csv')
 
 
 data_without_nan = pd.concat([data_patterns_without_NAN_GBM, data_patterns_without_NAN_LGG], ignore_index=True)
-data_without_nan.to_csv('/home/leonardo/Scrivania/BRATS_data/data_without_NAN_with_histologies.csv')
+#data_without_nan.to_csv('/home/leonardo/Scrivania/BRATS_data/data_without_NAN_with_histologies.csv')
 
 
