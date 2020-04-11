@@ -1,4 +1,4 @@
-#Cross Validation on KNeighborsClassifier for classification
+#Cross Validation on SVM for classification
 
 import pandas as pd
 import numpy as np
@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import scipy
 from sklearn.decomposition import PCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
@@ -15,7 +15,7 @@ from sklearn.model_selection import RandomizedSearchCV
 import load_data
 import save_output
 
-name = 'KNeighbors'
+name = 'svm_poly'
 dim_reduction = 'PCA'
 
 #load data
@@ -32,10 +32,12 @@ scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 df = pd.DataFrame()
 
 # Designate distributions to sample hyperparameters from 
-n_features_to_test = np.arange(1,11)
-k = np.arange(1,11)
+C_range = np.power(2, np.arange(-10, 11, dtype=float))
+gamma_range = np.power(2, np.arange(-10, 11, dtype=float))
+n_features_to_test = [0.85, 0.9, 0.95]
 
-for i in range(1, 21):
+
+for i in range(1, 11):
 
        #Train test split
        X_train, X_test, y_train, y_test = train_test_split(public_data, public_labels, test_size=0.3, 
@@ -45,17 +47,18 @@ for i in range(1, 21):
        train_labels_encoded = encoder.fit_transform(y_train)
        test_labels_encoded = encoder.transform(y_test)
 
-       #KNeighborsClassifier
-       steps = [('scaler', MinMaxScaler()), ('red_dim', PCA(random_state=i*42)), ('clf', KNeighborsClassifier())]
+       #SVM
+       steps = [('scaler', MinMaxScaler()), ('red_dim', PCA()), ('clf', SVC(kernel='poly', max_iter=1000, random_state=i*503))]
 
        pipeline = Pipeline(steps)
 
-       parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA()], 'red_dim__n_components':n_features_to_test, 
-                       'red_dim__whiten':[False, True], 'clf__n_neighbors':k, 
-                       'clf__weights':['uniform', 'distance'], 'clf__algorithm':['auto', 'ball_tree', 'kd_tree', 'brute']}]
+
+       parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA(random_state=i*42)], 'red_dim__n_components':list(n_features_to_test), 
+                      'red_dim__whiten':[False, True], 
+                      'clf__C': list(C_range), 'clf__gamma':['auto', 'scale']+list(gamma_range), 'clf__degree':[2, 3], 'clf__class_weight':[None, 'balanced']}]
 
 
-       grid = GridSearchCV(pipeline, param_grid=parameteres, cv=5, n_jobs=-1, verbose=1)
+       grid = GridSearchCV(pipeline, param_grid=parameteres, cv=3, n_jobs=-1, verbose=1)
 
        grid.fit(X_train, y_train)
 
@@ -72,7 +75,8 @@ for i in range(1, 21):
 
        df = df.append(bp, ignore_index=True)
 
-#df.to_csv('/home/users/ubaldi/TESI_PA/result_CV/large_space_NO_fixed_rand_state/KNeighbors_stability/best_params_KNeighbors.csv')
+#df.to_csv('/home/users/ubaldi/TESI_PA/result_CV/large_space_NO_fixed_rand_state/poly_svm_stability/best_params_svm_poly.csv')
+
 
 #insert sccuracy mean and std
 
@@ -92,7 +96,6 @@ df_test_acc_std = pd.DataFrame([{'accuracy_test_std':acc_test_std}])
 
 
 df_tot = pd.concat([df, df_train_acc_mean, df_train_acc_std, df_test_acc_mean, df_test_acc_std], axis=1)
-
 
 
 #create folder and save

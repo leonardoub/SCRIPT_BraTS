@@ -35,10 +35,10 @@ df = pd.DataFrame()
 # Designate distributions to sample hyperparameters from 
 #n_tree = np.arange(200, 2200, 200)
 n_tree = [10, 30, 50, 70, 100, 150, 200, 400, 600, 1000]
-n_features_to_test = np.arange(4, 11)
+n_features_to_test = [0.85, 0.9, 0.95]
 depth = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None]
 
-for i in range(1, 11):
+for i in range(1, 6):
 
     #Train test split
     X_train, X_test, y_train, y_test = train_test_split(public_data, public_labels, test_size=0.3, 
@@ -49,17 +49,17 @@ for i in range(1, 11):
     test_labels_encoded = encoder.transform(y_test)
 
     #RandomForestClassifier
-    steps = [('scaler', StandardScaler()), ('red_dim', PCA(random_state=i*42)), ('clf', RandomForestClassifier(random_state=i*503))]
+    steps = [('scaler', StandardScaler()), ('red_dim', PCA()), ('clf', RandomForestClassifier(random_state=i*503))]
 
     pipeline = Pipeline(steps)
 
-    parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA()], 'red_dim__n_components':list(n_features_to_test),
+    parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA(random_state=i*42)], 'red_dim__n_components':list(n_features_to_test),
                     'red_dim__whiten':[False, True], 
                     'clf__n_estimators':list(n_tree), 'clf__criterion':['gini', 'entropy'], 
                     'clf__max_depth':depth, 'clf__min_samples_split':[2, 5, 10], 
                     'clf__min_samples_leaf':[1, 2, 4], 'clf__class_weight':[None, 'balanced']}]
 
-    grid = GridSearchCV(pipeline, param_grid=parameteres, cv=5, n_jobs=-1, verbose=1)
+    grid = GridSearchCV(pipeline, param_grid=parameteres, cv=3, n_jobs=-1, verbose=1)
 
     grid.fit(X_train, y_train)
 

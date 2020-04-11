@@ -1,4 +1,4 @@
-#Cross Validation on AdaBoostClassifier for classification
+#Cross Validation on SVM for classification
 
 import pandas as pd
 import numpy as np
@@ -6,17 +6,16 @@ import matplotlib.pyplot as plt
 import scipy
 from sklearn.decomposition import PCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from sklearn.ensemble import AdaBoostClassifier
+from sklearn.svm import SVC
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import GridSearchCV 
 from sklearn.model_selection import RandomizedSearchCV
-from sklearn.tree import DecisionTreeClassifier
 import load_data
 import save_output
 
-name = 'AdaBoost'
+name = 'svm_sigmoid'
 dim_reduction = 'PCA'
 
 #load data
@@ -33,13 +32,12 @@ scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 df = pd.DataFrame()
 
 # Designate distributions to sample hyperparameters from 
-n_estimators = np.arange(100, 2000, 100)
-n_features_to_test = np.arange(1, 11)
-lr = [0.001, 0.01, 0.05, 0.1, 0.25, 0.50, 0.75, 1.0]
+C_range = np.power(2, np.arange(-10, 11, dtype=float))
+gamma_range = np.power(2, np.arange(-10, 11, dtype=float))
+n_features_to_test = [0.85, 0.9, 0.95]
 
 
-
-for i in range(1, 21):
+for i in range(1, 11):
 
        #Train test split
        X_train, X_test, y_train, y_test = train_test_split(public_data, public_labels, test_size=0.3, 
@@ -49,20 +47,19 @@ for i in range(1, 21):
        train_labels_encoded = encoder.fit_transform(y_train)
        test_labels_encoded = encoder.transform(y_test)
 
-       #RadiusNeighbors
-       steps = [('scaler', MinMaxScaler()), ('red_dim', PCA(random_state=i*42)), ('clf', AdaBoostClassifier(random_state=i*503))]
+       #SVM
+       steps = [('scaler', StandardScaler()), ('red_dim', PCA()), ('clf', SVC(kernel='sigmoid', random_state=i*503))]
 
        pipeline = Pipeline(steps)
 
-       parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA()], 'red_dim__n_components':n_features_to_test,
-                       'red_dim__whiten':[False, True],
-                       'clf__base_estimator': [DecisionTreeClassifier(max_depth = j) for j in range(1,6)],                     
-                       'clf__n_estimators':n_estimators, 'clf__learning_rate':lr, 'clf__algorithm':['SAMME', 'SAMME.R']}]
 
-       grid = GridSearchCV(pipeline, param_grid=parameteres, cv=5, n_jobs=-1, verbose=1)
+       parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA(random_state=i*42)], 'red_dim__n_components':n_features_to_test, 'red_dim__whiten':[False, True],
+                       'clf__C': list(C_range), 'clf__gamma':['auto', 'scale']+list(gamma_range), 'clf__class_weight':[None, 'balanced']}]
+
+       grid = GridSearchCV(pipeline, param_grid=parameteres, cv=3, n_jobs=-1, verbose=1)
 
        grid.fit(X_train, y_train)
-
+       
        score_train = grid.score(X_train, y_train)
        score_test = grid.score(X_test, y_test)
        best_p = grid.best_params_
@@ -76,7 +73,7 @@ for i in range(1, 21):
 
        df = df.append(bp, ignore_index=True)
 
-#df.to_csv('/home/users/ubaldi/TESI_PA/result_CV/large_space_NO_fixed_rand_state/AdaBoost_stability/best_params_AdaBoost.csv')
+#df.to_csv('/home/users/ubaldi/TESI_PA/result_CV/large_space_NO_fixed_rand_state/sigmoid_svm_stability/best_params_svm_sigmoid.csv')
 
 
 #insert sccuracy mean and std
@@ -102,4 +99,5 @@ df_tot = pd.concat([df, df_train_acc_mean, df_train_acc_std, df_test_acc_mean, d
 #create folder and save
 
 save_output.function_save_output(df_tot, dim_reduction, name)
+
 
