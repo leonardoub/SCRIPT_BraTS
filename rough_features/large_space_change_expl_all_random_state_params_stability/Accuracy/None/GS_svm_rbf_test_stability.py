@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import scipy
 from sklearn.decomposition import PCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from sklearn.svm import LinearSVC
+from sklearn.svm import SVC
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
@@ -15,7 +15,7 @@ from sklearn.model_selection import RandomizedSearchCV
 import load_data
 import save_output
 
-name = 'svm_implemented_lin_MMS'
+name = 'svm_rbf'
 dim_reduction = 'NONE'
 
 #load data
@@ -25,17 +25,19 @@ public_data, public_labels = load_data.function_load_data()
 encoder = LabelEncoder()
 
 #Scalers
+
 from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler
-scalers_to_test = [RobustScaler(), MinMaxScaler()]
+scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 
 df = pd.DataFrame()
 
-#Designate distributions to sample hyperparameters from 
+# Designate distributions to sample hyperparameters from 
 C_range = np.power(2, np.arange(-10, 11, dtype=float))
+gamma_range = np.power(2, np.arange(-10, 11, dtype=float))
 n_features_to_test = np.arange(4,10)
 
 
-for i in range(1, 21):
+for i in range(1, 11):
 
        #Train test split
        X_train, X_test, y_train, y_test = train_test_split(public_data, public_labels, test_size=0.3, 
@@ -46,17 +48,17 @@ for i in range(1, 21):
        test_labels_encoded = encoder.transform(y_test)
 
        #SVM
-       steps = [('scaler', MinMaxScaler()), ('clf', LinearSVC(loss='hinge', random_state=i*503))]
+       steps = [('scaler', StandardScaler()), ('clf', SVC(kernel='rbf'))]
 
        pipeline = Pipeline(steps)
 
        n_features_to_test = np.arange(1, 11)
 
-       parameteres = [{'scaler':[MinMaxScaler()],
-                       'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
+       parameteres = [{'scaler':scalers_to_test, 
+                     'clf__C': list(C_range), 'clf__gamma':['auto', 'scale']+list(gamma_range), 'clf__class_weight':[None, 'balanced']}]
 
 
-       grid = GridSearchCV(pipeline, param_grid=parameteres, cv=5, n_jobs=-1, verbose=1)
+       grid = GridSearchCV(pipeline, param_grid=parameteres, cv=3, n_jobs=-1, verbose=1)
 
        grid.fit(X_train, y_train)
 
@@ -72,8 +74,7 @@ for i in range(1, 21):
 
        df = df.append(bp, ignore_index=True)
 
-#df.to_csv('/home/users/ubaldi/TESI_PA/result_CV/large_space_NO_fixed_rand_state/lin_svm_stability/best_params_svm_lin.csv')
-
+#df.to_csv('/home/users/ubaldi/TESI_PA/result_CV/large_space_NO_fixed_rand_state/rbf_svm_stability/best_params_svm_rbf.csv')
 
 #insert sccuracy mean and std
 

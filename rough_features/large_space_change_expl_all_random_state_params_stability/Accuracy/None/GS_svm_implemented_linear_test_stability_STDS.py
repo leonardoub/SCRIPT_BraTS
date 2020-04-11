@@ -35,7 +35,7 @@ C_range = np.power(2, np.arange(-10, 11, dtype=float))
 n_features_to_test = np.arange(4,10)
 
 
-for i in range(1, 21):
+for i in range(1, 11):
 
        #Train test split
        X_train, X_test, y_train, y_test = train_test_split(public_data, public_labels, test_size=0.3, 
@@ -56,7 +56,7 @@ for i in range(1, 21):
                        'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
 
 
-       grid = GridSearchCV(pipeline, param_grid=parameteres, cv=5, n_jobs=-1, verbose=1)
+       grid = GridSearchCV(pipeline, param_grid=parameteres, cv=3, n_jobs=-1, verbose=1)
 
        grid.fit(X_train, y_train)
 

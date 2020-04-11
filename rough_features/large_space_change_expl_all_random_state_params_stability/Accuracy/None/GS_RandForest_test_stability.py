@@ -38,7 +38,7 @@ n_tree = [10, 30, 50, 70, 100, 150, 200, 400, 600, 1000]
 n_features_to_test = np.arange(4, 11)
 depth = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None]
 
-for i in range(1, 11):
+for i in range(1, 6):
 
     #Train test split
     X_train, X_test, y_train, y_test = train_test_split(public_data, public_labels, test_size=0.3, 
@@ -58,7 +58,7 @@ for i in range(1, 11):
                     'clf__max_depth':depth, 'clf__min_samples_split':[2, 5, 10], 
                     'clf__min_samples_leaf':[1, 2, 4], 'clf__class_weight':[None, 'balanced']}]
 
-    grid = GridSearchCV(pipeline, param_grid=parameteres, cv=5, n_jobs=-1, verbose=1)
+    grid = GridSearchCV(pipeline, param_grid=parameteres, cv=3, n_jobs=-1, verbose=1)
 
     grid.fit(X_train, y_train)
 
