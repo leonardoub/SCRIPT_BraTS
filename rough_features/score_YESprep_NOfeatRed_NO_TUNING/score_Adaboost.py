@@ -73,7 +73,7 @@ def create_csv_score_YES_NO(scaler_):
 
         y_scores_train = pipeline.predict_proba(X_train)[:, 1]
         auc_train = roc_auc_score(train_labels_encoded, y_scores_train)
-        tot_train_auc.append(auc_test)
+        tot_train_auc.append(auc_train)
         
                 
         y_scores_test = pipeline.predict_proba(X_test)[:, 1]
