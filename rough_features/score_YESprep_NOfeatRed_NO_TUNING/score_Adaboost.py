@@ -14,13 +14,14 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import cross_validate
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import classification_report
-import load_data 
-import save_output
+
 
 name = 'Adaboost'
 folder = 'score_YESprep_NOfeatRed'
 
 #load data
+import load_data 
+import save_output
 
 public_data, public_labels = load_data.function_load_data()
 

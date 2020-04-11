@@ -19,40 +19,23 @@ name = 'LDAClassifier'
 folder = 'score_YESprep_NOfeatRed'
 
 #load data
+import load_data 
+import save_output
 
-train_dataset_path = '/home/users/ubaldi/TESI_PA/data/database_training2.csv'
-test_dataset_path = '/home/users/ubaldi/TESI_PA/data/database_nostro_without_nan.csv'
-
-df_train = pd.read_csv(train_dataset_path)
-df_test = pd.read_csv(test_dataset_path)
-
-df_train.rename(columns={'Survival.time (months)':'Surv_time_months'}, inplace=True)
-df_test.rename(columns={'Survival.time (months)':'Surv_time_months'}, inplace=True)
-
-
-df_train.rename(columns={'Overall.Stage':'Overall_Stage'}, inplace=True)
-df_test.rename(columns={'Overall.Stage':'Overall_Stage'}, inplace=True)
-
-public_data = df_train.drop(['Histology', 'Surv_time_months', 'OS', 'deadstatus.event', 'Overall_Stage'], axis=1)
-PA_data = df_test.drop(['Histology', 'Surv_time_months', 'OS', 'deadstatus.event', 'Overall_Stage'], axis=1)
-
-public_labels = df_train.Histology
-PA_labels = df_test.Histology
+public_data, public_labels = load_data.function_load_data()
 
 
 #vettorizzare i label
 from sklearn.preprocessing import LabelEncoder
 encoder = LabelEncoder()
 
-def create_csv_score_YES_NO(scaler_, abbr_scaler):
+def create_csv_score_YES_NO(scaler_):
 
     #tot_random_state = []
     tot_train_score = []
     tot_test_score = []
-    #tot_macro_ovo = []
-    #tot_weighted_ovo = []
-    #tot_macro_ovr = []
-    tot_weighted_ovr = []
+    tot_train_auc = []
+    tot_test_auc = []
 
     solver_ = 'lsqr'
     shrinkage_ = 'auto'
@@ -86,20 +69,17 @@ def create_csv_score_YES_NO(scaler_, abbr_scaler):
         score_test = pipeline.score(X_test, test_labels_encoded)
         tot_test_score.append(score_test)
 
-        y_scores = pipeline.predict_proba(X_test)
-
-        #macro_ovo = roc_auc_score(test_labels_encoded, y_scores, average='macro',  multi_class='ovo')
-        #weighted_ovo = roc_auc_score(test_labels_encoded, y_scores, average='weighted',  multi_class='ovo')
-        #macro_ovr = roc_auc_score(test_labels_encoded, y_scores, average='macro',  multi_class='ovr')
-        weighted_ovr = roc_auc_score(test_labels_encoded, y_scores, average='weighted',  multi_class='ovr')
-
-        #tot_macro_ovo.append(macro_ovo)
-        #tot_weighted_ovo.append(weighted_ovo)
-        #tot_macro_ovr.append(macro_ovr)
-        tot_weighted_ovr.append(weighted_ovr)
+        y_scores_train = pipeline.predict_proba(X_train)[:, 1]
+        auc_train = roc_auc_score(train_labels_encoded, y_scores_train)
+        tot_train_auc.append(auc_train)
+        
+                
+        y_scores_test = pipeline.predict_proba(X_test)[:, 1]
+        auc_test = roc_auc_score(test_labels_encoded, y_scores_test)
+        tot_test_auc.append(auc_test)
 
         y_pred = pipeline.predict(X_test)
-        
+
         report = classification_report(test_labels_encoded, y_pred, output_dict=True)
         df_r = pd.DataFrame(report)
         df_r = df_r.transpose()
@@ -116,15 +96,19 @@ def create_csv_score_YES_NO(scaler_, abbr_scaler):
         #df_r.to_csv(fullname_r)
 
 
+
     #mean value and std
 
     mean_train_score = np.mean(tot_train_score)
     mean_test_score = np.mean(tot_test_score)
-    mean_weighted_ovr = np.mean(tot_weighted_ovr)
+    mean_train_auc = np.mean(tot_train_auc)
+    mean_test_auc = np.mean(tot_test_auc)
+
 
     std_train_score = np.std(tot_train_score)
     std_test_score = np.std(tot_test_score)
-    std_weighted_ovr = np.std(tot_weighted_ovr)
+    std_train_auc = np.std(tot_train_auc)
+    std_test_auc = np.std(tot_test_auc)
 
 
     # pandas can convert a list of lists to a dataframe.
@@ -132,13 +116,15 @@ def create_csv_score_YES_NO(scaler_, abbr_scaler):
     # transpose is applied to get to the user's desired output. 
     df = pd.DataFrame([tot_train_score, [mean_train_score], [std_train_score], 
                     tot_test_score, [mean_test_score], [std_test_score], 
-                    tot_weighted_ovr, [mean_weighted_ovr], [std_weighted_ovr],
+                    tot_train_auc, [mean_train_auc], [std_train_auc],
+                    tot_test_auc, [mean_test_auc], [std_test_auc],
                     [scaler], ['default'], ['default']])
     df = df.transpose() 
 
     fieldnames = ['train_accuracy', 'train_accuracy_MEAN', 'train_accuracy_STD',
                 'test_accuracy', 'test_accuracy_MEAN', 'test_accuracy_STD',
-                'roc_auc_score_weighted_ovr', 'roc_auc_score_weighted_ovr_MEAN', 'roc_auc_score_weighted_ovr_STD',
+                'train_roc_auc_score', 'train_roc_auc_score_MEAN', 'train_roc_auc_score_STD',
+                'test_roc_auc_score', 'test_roc_auc_score_MEAN', 'test_roc_auc_score_STD',
                 'SCALER', 'CLF__solver', 'CLF__shrinkage']
 
 
@@ -150,21 +136,16 @@ def create_csv_score_YES_NO(scaler_, abbr_scaler):
 
 
 
-    #create folder and save
 
-    import os
-
-    outname = f'score_{name}_{str(abbr_scaler)}_YES_NO.csv'
-
-    outdir = f'/home/users/ubaldi/TESI_PA/result_score/Public/{folder}/'
-    if not os.path.exists(outdir):
-        os.makedirs(outdir)
-
-    fullname = os.path.join(outdir, outname)    
-
-    df.to_csv(fullname, index=False, header=fieldnames)
+    return df, fieldnames
 
 
-create_csv_score_YES_NO(MinMaxScaler(), 'MMS')
-create_csv_score_YES_NO(StandardScaler(), 'STDS')
-create_csv_score_YES_NO(RobustScaler(), 'RBT')
+
+df_MMS, fieldnames_MMS = create_csv_score_YES_NO(MinMaxScaler())
+save_output.function_save_output(df_MMS, 'MMS', name, fieldnames_MMS)
+
+df_STDS, fieldnames_STDS = create_csv_score_YES_NO(StandardScaler())
+save_output.function_save_output(df_STDS, 'STDS', name, fieldnames_STDS)
+
+df_RBT, fieldnames_RBT = create_csv_score_YES_NO(RobustScaler())
+save_output.function_save_output(df_RBT, 'RBT', name, fieldnames_RBT)
