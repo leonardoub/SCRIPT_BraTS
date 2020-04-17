@@ -31,7 +31,6 @@ scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 
 # Designate distributions to sample hyperparameters from 
 n_tree = [10, 30, 50, 70, 100, 250, 500, 1000]
-n_features_to_test = np.arange(4, 11)
 depth = [10, 25, 50, 75, 100, None]
 
 

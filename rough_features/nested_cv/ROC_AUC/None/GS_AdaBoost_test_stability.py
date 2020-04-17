@@ -35,6 +35,8 @@ scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 n_estimators = [10, 30, 50, 70, 100, 150]
 lr = [0.001, 0.01, 0.1, 0.50, 1.0]
 
+
+#AdaBoost
 steps = [('scaler', MinMaxScaler()), ('clf', AdaBoostClassifier(random_state=503))]
 
 pipeline = Pipeline(steps)
