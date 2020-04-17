@@ -37,8 +37,7 @@ steps = [('scaler', MinMaxScaler()), ('clf', SVC(kernel='linear', random_state=5
 pipeline = Pipeline(steps)
 
 
-parameteres = [{'scaler':[MinMaxScaler()], 'red_dim':[None], 
-                     'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
+parameteres = [{'scaler':[MinMaxScaler()], 'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
 
 results = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres)
 
