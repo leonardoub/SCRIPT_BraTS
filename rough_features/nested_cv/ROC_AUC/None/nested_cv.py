@@ -50,8 +50,8 @@ def function_nested_cv(data, labels, pipel, grid_params):
         bp['outer_loop_accuracy_scores'] = accuracy_score(labels_encoded[test_index], pred)
         bp['inner_loop_roc_auc_scores'] = GSCV.best_score_
         bp['random_state_clf'] = 503
-        bp['inner_kf'] = 1
-        bp['outer_kf'] = 2
+        bp['random_state_inner_kf'] = 1
+        bp['random_state_outer_kf'] = 2
 
         df = df.append(bp, ignore_index=True)
 
