@@ -4,7 +4,7 @@ import pandas as pd
 def function_save_output(final_data, dimensionality_reduction, name_clf):
     outname = f'best_params_{dimensionality_reduction}_{name_clf}.csv'
 
-    outdir = f'/home/users/ubaldi/TESI_BRATS/result_CV/nested_CV/rough_data/{name_clf}_stability'
+    outdir = f'/home/users/ubaldi/TESI_BRATS/result_CV/nested_CV/data_without_HISTO/{name_clf}_stability'
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
