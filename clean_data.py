@@ -62,6 +62,8 @@ data = pd.concat([data_GBM, data_LGG], ignore_index=True)
 
 
 data_without_nan = pd.concat([data_patterns_without_NAN_GBM, data_patterns_without_NAN_LGG], ignore_index=True)
-#data_without_nan.to_csv('/home/leonardo/Scrivania/BRATS_data/data_without_NAN_with_histologies.csv')
+#data_without_nan.to_csv('/home/leonardo/Scrivania/BRATS_data/data_without_NAN_with_histologies.csv', index=False)
 
 
+
+#A=pd.read_csv('/home/leonardo/Scrivania/BRATS_data/data_without_NAN_without_HISTO_with_histologies.csv')

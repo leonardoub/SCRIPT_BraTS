@@ -18,4 +18,4 @@ index_2 = features_list.index('HISTO_NET_FLAIR_Bin10')
 
 
 data_without_NAN_and_HISTO = data_without_NAN.drop(data_without_NAN.iloc[:, index_1:index_2+1], inplace = False, axis = 1) 
-#data_without_NAN_and_HISTO.to_csv('/home/leonardo/Scrivania/BRATS_data/data_without_NAN_without_HISTO_with_histologies.csv')
+data_without_NAN_and_HISTO.to_csv('/home/leonardo/Scrivania/BRATS_data/data_without_NAN_without_HISTO_with_histologies.csv', index=False)
