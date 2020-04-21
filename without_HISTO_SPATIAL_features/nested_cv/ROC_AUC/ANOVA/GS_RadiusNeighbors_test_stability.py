@@ -15,9 +15,12 @@ from sklearn.model_selection import RandomizedSearchCV
 import load_data
 import save_output
 import nested_cv
+from sklearn.feature_selection import SelectKBest, SelectPercentile
+from sklearn.feature_selection import f_classif
+import save_features_selected_ANOVA
 
 name = 'RadiusNeighbors'
-dim_reduction = 'PCA'
+dim_reduction = 'ANOVA'
 
 #load data
 
@@ -34,18 +37,23 @@ R = np.arange(0.1, 10, 0.2)
 n_features_to_test = [0.85, 0.9, 0.95]
 
 #RadiusNeighbors
-steps = [('scaler', MinMaxScaler()), ('red_dim', PCA()), ('clf', RadiusNeighborsClassifier(outlier_label='most_frequent'))]
+steps = [('scaler', MinMaxScaler()), ('red_dim', SelectPercentile(f_classif, percentile=10)), ('clf', RadiusNeighborsClassifier(outlier_label='most_frequent'))]
 
 pipeline = Pipeline(steps)
 
 
-parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':n_features_to_test, 
-                     'red_dim__whiten':[False, True], 'clf__radius':R, 
+parameteres = [{'scaler':scalers_to_test, 
                      'clf__weights':['uniform', 'distance'], 'clf__algorithm':['auto', 'ball_tree', 'kd_tree', 'brute']}]
 
 
-results = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres)
+results, dict_best_estimators = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres)
+
+#create and save file best features ANOVA
+
+tot_features = public_data.columns
+save_features_selected_ANOVA.function_save_features_selected_ANOVA(dim_reduction, name, tot_features, dict_best_estimators)
 
 #create folder and save
 
 save_output.function_save_output(results, dim_reduction, name)
+
