@@ -8,6 +8,7 @@ import pandas as pd
 def function_nested_cv(data, labels, pipel, grid_params):
 
     df = pd.DataFrame()
+    best_est_dict = {}
 
 
     i = 0
@@ -38,7 +39,7 @@ def function_nested_cv(data, labels, pipel, grid_params):
         
 
         #per far uscire i best_estimators in qualche modo
-        #best_est_dict.update({f'best_est_{i}' : GSCV.best_estimator_})
+        best_est_dict.update({f'best_est_{i}' : GSCV.best_estimator_})
 
        
         # Appending the "winning" hyper parameters and their associated accuracy score
@@ -58,4 +59,4 @@ def function_nested_cv(data, labels, pipel, grid_params):
 
 
 
-    return df
+    return df, best_est_dict
