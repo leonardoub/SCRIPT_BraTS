@@ -59,8 +59,7 @@ save_output.function_save_output(results_1, dim_reduction, name_1)
 
 
 #RBTS
-parameteres_2 = [{'scaler':[RobustScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
-              'red_dim__whiten':[False, True], 
+parameteres_2 = [{'scaler':[RobustScaler()], 
               'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
               
 results_2, dict_best_estimators_2 = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_2)
@@ -75,8 +74,7 @@ save_output.function_save_output(results_2, dim_reduction, name_2)
 
 
 #STDS
-parameteres_3 = [{'scaler':[StandardScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
-              'red_dim__whiten':[False, True], 
+parameteres_3 = [{'scaler':[StandardScaler()],
               'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
               
 results_3, dict_best_estimators_3 = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_3)
