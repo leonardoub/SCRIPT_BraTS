@@ -40,7 +40,7 @@ steps = [('scaler', StandardScaler()), ('clf', GradientBoostingClassifier(random
 
 pipeline = Pipeline(steps)
 
-parameteres = [{'scaler':scalers_to_test, 'learning_rate':lr,
+parameteres = [{'scaler':scalers_to_test, 'clf__learning_rate':lr,
             'clf__n_estimators':list(n_tree),  
             'clf__max_depth':depth, 'clf__min_samples_split':[2, 5, 10], 
             'clf__min_samples_leaf':[1, 2, 4]}]
