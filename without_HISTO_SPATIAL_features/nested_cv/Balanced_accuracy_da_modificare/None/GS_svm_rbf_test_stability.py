@@ -37,7 +37,7 @@ gamma_range = np.power(2, np.arange(-10, 11, dtype=float))
 n_features_to_test = np.arange(4,10)
 
 #SVM
-steps = [('scaler', StandardScaler()), ('clf', SVC(kernel='rbf', random_state=503))]
+steps = [('scaler', StandardScaler()), ('clf', SVC(kernel='rbf', random_state=503, probability=True))]
 
 pipeline = Pipeline(steps)
 

@@ -38,7 +38,7 @@ n_features_to_test = np.arange(4,10)
 
 
 #SVM
-steps = [('scaler', MinMaxScaler()), ('clf', SVC(kernel='poly', max_iter=1000, random_state=503))]
+steps = [('scaler', MinMaxScaler()), ('clf', SVC(kernel='poly', max_iter=1000, random_state=503, probability=True))]
 
 pipeline = Pipeline(steps)
 

@@ -34,7 +34,7 @@ scalers_to_test = [RobustScaler(), MinMaxScaler()]
 C_range = np.power(2, np.arange(-10, 11, dtype=float))
 
 #SVM
-steps = [('scaler', MinMaxScaler()), ('clf', LinearSVC(loss='hinge', random_state=503))]
+steps = [('scaler', MinMaxScaler()), ('clf', LinearSVC(loss='hinge', random_state=503, probability=True))]
 
 pipeline = Pipeline(steps)
 
