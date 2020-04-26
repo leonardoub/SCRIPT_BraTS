@@ -36,6 +36,9 @@ def function_nested_cv(data, labels, pipel, grid_params):
         # The best hyper parameters from GSCV is now being tested on the unseen outer loop test data.
         pred = GSCV.predict(data.iloc[test_index, :])
         
+        
+        pred_proba = GSCV.predict_proba(data.iloc[test_index, :])[:, 1]
+
 
         #per far uscire i best_estimators in qualche modo
         #best_est_dict.update({f'best_est_{i}' : GSCV.best_estimator_})
@@ -47,6 +50,7 @@ def function_nested_cv(data, labels, pipel, grid_params):
 
         bp = pd.DataFrame(best_p, index=[i])
         bp['outer_loop_roc_auc_scores'] = roc_auc_score(labels_encoded[test_index], pred)
+        bp['outer_loop_roc_auc_scores_PP'] = roc_auc_score(labels_encoded[test_index], pred_proba)
         bp['outer_loop_accuracy_scores'] = accuracy_score(labels_encoded[test_index], pred)
         bp['outer_loop_balanced_accuracy_scores'] = accuracy_score(labels_encoded[test_index], pred)
         bp['inner_loop_balanced_accuracy_scores'] = GSCV.best_score_
