@@ -50,7 +50,7 @@ def function_nested_cv(data, labels, pipel, grid_params):
 
         bp = pd.DataFrame(best_p, index=[i])
         bp['outer_loop_roc_auc_scores'] = roc_auc_score(labels_encoded[test_index], pred)
-        bp['outer_loop_roc_auc_scores_PP'] = roc_auc_score(labels_encoded[test_index], pred_proba)
+        bp['outer_loop_roc_auc_scores_predict_proba'] = roc_auc_score(labels_encoded[test_index], pred_proba)
         bp['outer_loop_accuracy_scores'] = accuracy_score(labels_encoded[test_index], pred)
         bp['outer_loop_balanced_accuracy_scores'] = accuracy_score(labels_encoded[test_index], pred)
         bp['inner_loop_balanced_accuracy_scores'] = GSCV.best_score_
