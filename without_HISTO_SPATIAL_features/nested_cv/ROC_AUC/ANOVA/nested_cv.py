@@ -1,5 +1,5 @@
 from sklearn.model_selection import GridSearchCV, KFold, cross_val_predict, cross_val_score, StratifiedKFold
-from sklearn.metrics import roc_auc_score, classification_report, accuracy_score
+from sklearn.metrics import roc_auc_score, classification_report, accuracy_score, balanced_accuracy_score
 from sklearn.preprocessing import LabelEncoder
 import pandas as pd
 
@@ -35,8 +35,15 @@ def function_nested_cv(data, labels, pipel, grid_params):
         GSCV.fit(data.iloc[train_index, :], labels_encoded[train_index])
         
         # The best hyper parameters from GSCV is now being tested on the unseen outer loop test data.
-        pred = GSCV.predict(data.iloc[test_index, :])
+        pred_test = GSCV.predict(data.iloc[test_index, :])
         
+        #per prova
+        pred_train = GSCV.predict(data.iloc[train_index, :])
+
+        pred_proba_train = GSCV.predict_proba(data.iloc[train_index, :])[:, 1]
+        
+        pred_proba_test = GSCV.predict_proba(data.iloc[test_index, :])[:, 1]
+
 
         #per far uscire i best_estimators in qualche modo
         best_est_dict.update({f'best_est_{i}' : GSCV.best_estimator_})
@@ -47,11 +54,23 @@ def function_nested_cv(data, labels, pipel, grid_params):
         best_p = GSCV.best_params_
 
         bp = pd.DataFrame(best_p, index=[i])
-        bp['outer_loop_roc_auc_scores'] = roc_auc_score(labels_encoded[test_index], pred)
-        bp['outer_loop_accuracy_scores'] = accuracy_score(labels_encoded[test_index], pred)
         bp['inner_loop_roc_auc_scores'] = GSCV.best_score_
+        
+        #ROC AUC WITHOUT predict proba: WRONG WAY
+        bp['train_roc_auc_scores'] = roc_auc_score(labels_encoded[train_index], pred_train)
+        bp['outer_loop_roc_auc_scores'] = roc_auc_score(labels_encoded[test_index], pred_test)
+        
+        #ROC AUC WITH PREDICT PROBA
+        bp['train_roc_auc_scores_predict_proba'] = roc_auc_score(labels_encoded[train_index], pred_proba_train)
+        bp['outer_loop_roc_auc_scores_predict_proba'] = roc_auc_score(labels_encoded[test_index], pred_proba_test)
+       
+        bp['train_accuracy_scores'] = accuracy_score(labels_encoded[train_index], pred_train)
+        bp['outer_loop_accuracy_scores'] = accuracy_score(labels_encoded[test_index], pred_test)
+
+        bp['train_balanced_accuracy_scores'] = balanced_accuracy_score(labels_encoded[train_index], pred_train)
+        bp['outer_loop_balanced_accuracy_scores'] = balanced_accuracy_score(labels_encoded[test_index], pred_test)
+
         bp['random_state_clf'] = 503
-        bp['random_state_PCA'] = 42
         bp['random_state_inner_kf'] = 1
         bp['random_state_outer_kf'] = 2
 
