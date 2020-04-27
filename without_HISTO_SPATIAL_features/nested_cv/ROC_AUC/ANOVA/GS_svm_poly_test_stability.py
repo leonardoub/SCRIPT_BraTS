@@ -39,7 +39,7 @@ n_features_to_test = [0.85, 0.9, 0.95]
 
 
 #SVM
-steps = [('scaler', MinMaxScaler()), ('red_dim', SelectPercentile(f_classif, percentile=10)), ('clf', SVC(kernel='poly', max_iter=1000, random_state=503))]
+steps = [('scaler', MinMaxScaler()), ('red_dim', SelectPercentile(f_classif, percentile=10)), ('clf', SVC(kernel='poly', probability=True, max_iter=1000, random_state=503))]
 
 pipeline = Pipeline(steps)
 
