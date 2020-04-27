@@ -37,7 +37,7 @@ n_features_to_test = [0.85, 0.9, 0.95]
 
 
 #SVM
-steps = [('scaler', MinMaxScaler()), ('red_dim', PCA()), ('clf', SVC(kernel='linear', random_state=503))]
+steps = [('scaler', MinMaxScaler()), ('red_dim', PCA()), ('clf', SVC(kernel='linear', probability=True, random_state=503))]
 
 pipeline = Pipeline(steps)
 
