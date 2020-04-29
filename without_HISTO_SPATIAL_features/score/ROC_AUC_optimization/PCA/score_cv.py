@@ -92,12 +92,12 @@ def function_score_cv(data, labels, pipel):
 
         df_score_value = pd.DataFrame.from_dict(score_value_dict)
 
-        mean_std_dict = {'train_accuracy_MEAN':mean_train_acc, 'train_accuracy_STD':std_train_acc,
-         'test_accuracy_MEAN':mean_test_acc, 'test_accuracy_STD':std_test_acc,
-         'train_balanced_accuracy_MEAN':mean_train_bal_acc, 'train_balanced_accuracy_STD':std_train_bal_acc,
-         'test_balanced_accuracy_MEAN':mean_test_bal_acc, 'test_balanced_accuracy_STD':std_test_bal_acc,
-         'train_ROC_AUC_score_MEAN':mean_train_ROC_AUC, 'train_ROC_AUC_score_STD':std_train_ROC_AUC,
-         'test_ROC_AUC_score_MEAN':mean_test_ROC_AUC, 'test_ROC_AUC_score_STD':std_test_ROC_AUC}
+        mean_std_dict = {'train_accuracy_MEAN':[mean_train_acc], 'train_accuracy_STD':[std_train_acc],
+         'test_accuracy_MEAN':[mean_test_acc], 'test_accuracy_STD':[std_test_acc],
+         'train_balanced_accuracy_MEAN':[mean_train_bal_acc], 'train_balanced_accuracy_STD':[std_train_bal_acc],
+         'test_balanced_accuracy_MEAN':[mean_test_bal_acc], 'test_balanced_accuracy_STD':[std_test_bal_acc],
+         'train_ROC_AUC_score_MEAN':[mean_train_ROC_AUC], 'train_ROC_AUC_score_STD':[std_train_ROC_AUC],
+         'test_ROC_AUC_score_MEAN':[mean_test_ROC_AUC], 'test_ROC_AUC_score_STD':[std_test_ROC_AUC]}
 
         df_mean_std = pd.DataFrame.from_dict(mean_std_dict)
 
