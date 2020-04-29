@@ -33,7 +33,7 @@ random_state_clf = 503
 random_state_PCA = 42
 random_state_outer_kf = 2
 
-dict_best_params = {'SCALER':scaler_, 'PCA__n_components':n_comp_pca = 3, 'CLF__algorithm':algorithm_, 
+dict_best_params = {'SCALER':scaler_, 'PCA__n_components':n_comp_pca, 'CLF__algorithm':algorithm_, 
                     'CLF__lr':lr, 'CLF__n_estimators':n_estimators_,
                     'CLF__random_state':random_state_clf, 'PCA__random_state':random_state_PCA ,'random_state_outer_kf':random_state_outer_kf}
 
