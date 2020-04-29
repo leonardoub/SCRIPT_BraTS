@@ -10,6 +10,7 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.preprocessing import StandardScaler, RobustScaler, QuantileTransformer, MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import AdaBoostClassifier
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 import os
 from sklearn.pipeline import Pipeline
@@ -24,17 +25,20 @@ import save_output
 
 public_data, public_labels = load_data.function_load_data()
 
-scaler_ = MinMaxScaler()
-n_comp_pca = 3
-algorithm_ = 'SAMME.R'
-lr = 0.2
-n_estimators_ = 60
+scaler_ = RobustScaler()
+n_comp_pca = 0.95
+whiten_ = False
+depth_= 3
+algorithm_ = 'SAMME'
+lr = 0.1
+n_estimators_ = 70
 random_state_clf = 503
 random_state_PCA = 42
 random_state_outer_kf = 2
 
-dict_best_params = {'SCALER':[scaler_], 'PCA__n_components':[n_comp_pca], 'CLF__algorithm':[algorithm_], 
-                    'CLF__lr':[lr], 'CLF__n_estimators':[n_estimators_],
+dict_best_params = {'SCALER':[scaler_], 'PCA__n_components':[n_comp_pca], 'PCA__whiten':[whiten_], 
+                    'CLF__algorithm':[algorithm_], 'CLF__lr':[lr], 'CLF__n_estimators':[n_estimators_],
+                    'CLF__base_estimator_DTC_max_depth':[depth_],
                     'CLF__random_state':[random_state_clf], 'PCA__random_state':[random_state_PCA] ,'random_state_outer_kf':[random_state_outer_kf]}
 
 
@@ -42,8 +46,8 @@ df_best_params = pd.DataFrame.from_dict(dict_best_params)
 
 #implmentation of steps
 scaler=scaler_
-pca = PCA(n_components=n_comp_pca, random_state=random_state_PCA)
-clf = AdaBoostClassifier(algorithm=algorithm_, learning_rate=lr, n_estimators=n_estimators_, random_state=random_state_clf)
+pca = PCA(n_components=n_comp_pca, whiten=whiten_, random_state=random_state_PCA)
+clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth = depth_), algorithm=algorithm_, learning_rate=lr, n_estimators=n_estimators_, random_state=random_state_clf)
 
 steps = [('scaler', scaler), ('red_dim', pca), ('clf', clf)]    
 

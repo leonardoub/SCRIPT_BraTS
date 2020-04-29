@@ -14,9 +14,10 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import cross_validate
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import classification_report
+import score_cv
 
 name = 'QDAClassifier'
-folder = 'score_YESprep_NOfeatRed'
+dim_reduction = 'PCA'
 
 #load data
 import load_data 
