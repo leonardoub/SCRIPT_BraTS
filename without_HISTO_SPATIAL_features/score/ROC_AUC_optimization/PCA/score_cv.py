@@ -2,7 +2,7 @@ from sklearn.model_selection import GridSearchCV, KFold, cross_val_predict, cros
 from sklearn.metrics import roc_auc_score, classification_report, accuracy_score, balanced_accuracy_score
 from sklearn.preprocessing import LabelEncoder
 import pandas as pd
-
+import numpy as np
 
 
 def function_score_cv(data, labels, pipel):
