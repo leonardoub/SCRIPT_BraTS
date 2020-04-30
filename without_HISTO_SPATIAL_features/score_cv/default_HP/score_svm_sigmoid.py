@@ -74,3 +74,6 @@ save_output.function_save_output(df_RBT, 'RBT', name)
 
 df_NONE = create_score_csv_default_HP(None)
 save_output.function_save_output(df_NONE, 'NONE', name)
+
+df_NONE = create_score_csv_default_HP(None)
+save_output.function_save_output(df_NONE, 'NONE', name)
