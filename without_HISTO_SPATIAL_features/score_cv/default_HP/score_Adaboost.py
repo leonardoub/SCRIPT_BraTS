@@ -64,10 +64,10 @@ def create_score_csv_default_HP(scaler_):
 df_MMS = create_score_csv_default_HP(MinMaxScaler())
 save_output.function_save_output(df_MMS, 'MMS', name)
 
-df_STDS, fieldnames_STDS = create_score_csv_default_HP(StandardScaler())
+df_STDS = create_score_csv_default_HP(StandardScaler())
 save_output.function_save_output(df_STDS, 'STDS', name)
 
-df_RBT, fieldnames_RBT = create_score_csv_default_HP(RobustScaler())
+df_RBT = create_score_csv_default_HP(RobustScaler())
 save_output.function_save_output(df_RBT, 'RBT', name)
 
 
