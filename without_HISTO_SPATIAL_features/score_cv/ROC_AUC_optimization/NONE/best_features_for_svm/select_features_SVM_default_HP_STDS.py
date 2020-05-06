@@ -15,7 +15,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import classification_report
 from sklearn.preprocessing import LabelEncoder
 
-name = 'SVM_linear'
+name = 'SVM_linear_STDS'
 dim_reduction = 'NONE_DEFAULT_HP'
 
 
@@ -32,7 +32,7 @@ labels_encoded = encoder.fit_transform(public_labels)
 ########################################
 #PIPELINE DEAFULT HP
 ########################################
-#scaler_ = MinMaxScaler()
+scaler_ = StandardScaler()
 #C_ = 0.5
 #class_weight_ = None
 random_state_clf = 503
@@ -42,7 +42,7 @@ random_state_outer_kf = 2
 clf = SVC(kernel='linear', probability=True, random_state=random_state_clf)
 
 
-steps = [('clf', clf)]    
+steps = [('scaler', scaler_), ('clf', clf)]    
 
 pipeline = Pipeline(steps)
 
