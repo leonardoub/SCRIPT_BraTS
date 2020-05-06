@@ -190,20 +190,23 @@ outer_kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=2)
 i=0
 
 
-for train_index, test_index, pipeline in zip(outer_kf.split(public_data, labels_encoded), pipeline_list):
+for train_index, test_index in outer_kf.split(public_data, labels_encoded):
+
+    pipeline = pipeline_list[i]
 
     i+=1
+
 
     pipeline.fit(public_data.iloc[train_index, :], labels_encoded[train_index])
 
     rank_features = pipeline.named_steps["clf"].feature_importances_
 
 
-    important_features = sorted(zip(rank_features, public_data.columns), reverse=True)[:10]
+    important_features = sorted(zip(rank_features, public_data.columns), reverse=True)[:20]
     #ATTENZIONE HA SENSO SOLO SE NON SI FA PCA
-
-    D[f'CLF_FOLD_{i}_FEATURES'] = important_features[1]
-    D[f'FOLD_{i}_value'] = important_features[0]
+    
+    D[f'CLF_FOLD_{i}_FEATURES'] = [item[1] for item in important_features]
+    D[f'FOLD_{i}_value'] = [item[0] for item in important_features]
 
 
 df_best_features = pd.DataFrame.from_dict(D)
