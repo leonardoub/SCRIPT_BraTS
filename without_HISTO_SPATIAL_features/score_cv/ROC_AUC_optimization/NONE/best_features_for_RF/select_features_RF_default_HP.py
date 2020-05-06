@@ -82,7 +82,7 @@ for train_index, test_index in outer_kf.split(public_data, labels_encoded):
     important_features = sorted(zip(rank_features, public_data.columns), reverse=True)[:20]
     #ATTENZIONE HA SENSO SOLO SE NON SI FA PCA
     
-    D[f'CLF_FOLD_{i}_FEATURES'] = [item[1] for item in important_features]
+    D[f'CLF_default_HP_FOLD_{i}_FEATURES'] = [item[1] for item in important_features]
     D[f'FOLD_{i}_value'] = [item[0] for item in important_features]
 
 
