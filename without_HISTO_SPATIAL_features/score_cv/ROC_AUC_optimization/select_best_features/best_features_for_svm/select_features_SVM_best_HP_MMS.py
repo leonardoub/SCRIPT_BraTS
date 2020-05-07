@@ -15,10 +15,8 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import classification_report
 from sklearn.preprocessing import LabelEncoder
 
-name_clf = 'SVM_linear'
-name_scaler = 'NONE'
-name_dim_red = 'NONE'
-best_or_def_HP= 'DEFAULT_HP'
+name = 'SVM_linear_MMS'
+dim_reduction = 'NONE_DEFAULT_HP'
 
 
 #load data
@@ -34,7 +32,7 @@ labels_encoded = encoder.fit_transform(public_labels)
 ########################################
 #PIPELINE DEAFULT HP
 ########################################
-#scaler_ = MinMaxScaler()
+scaler_ = MinMaxScaler()
 #C_ = 0.5
 #class_weight_ = None
 random_state_clf = 503
@@ -44,7 +42,7 @@ random_state_outer_kf = 2
 clf = SVC(kernel='linear', probability=True, random_state=random_state_clf)
 
 
-steps = [('clf', clf)]    
+steps = [('scaler', scaler_), ('clf', clf)]    
 
 pipeline = Pipeline(steps)
 
@@ -89,7 +87,7 @@ df_best_features = pd.DataFrame.from_dict(D)
 
 
 
-save_output.function_save_output(df_best_features, name_clf, name_scaler, name_dim_red, best_or_def_HP)
+save_output.function_save_output(df_best_features, dim_reduction, name)
 
 
 

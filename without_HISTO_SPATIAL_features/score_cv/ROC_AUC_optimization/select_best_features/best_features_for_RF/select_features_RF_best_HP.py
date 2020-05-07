@@ -15,9 +15,10 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import classification_report
 from sklearn.preprocessing import LabelEncoder
 
-name = 'RandomForest'
-dim_reduction = 'NONE'
-
+name_clf = 'RandomForest'
+name_scaler = 'NONE'
+name_dim_red = 'NONE'
+best_or_def_HP= 'BEST_HP'
 
 #load data
 import load_data 
@@ -213,7 +214,7 @@ df_best_features = pd.DataFrame.from_dict(D)
 
 
 
-save_output.function_save_output(df_best_features, dim_reduction, name)
+save_output.function_save_output(df_best_features, name_clf, name_scaler, name_dim_red, best_or_def_HP)
 
 
 

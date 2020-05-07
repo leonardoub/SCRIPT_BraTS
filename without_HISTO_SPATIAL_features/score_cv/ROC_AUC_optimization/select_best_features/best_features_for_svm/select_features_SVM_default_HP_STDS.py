@@ -15,8 +15,10 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import classification_report
 from sklearn.preprocessing import LabelEncoder
 
-name = 'SVM_linear_STDS'
-dim_reduction = 'NONE_DEFAULT_HP'
+name_clf = 'SVM_linear'
+name_scaler = 'STDS'
+name_dim_red = 'NONE'
+best_or_def_HP= 'DEFAULT_HP'
 
 
 #load data
@@ -87,7 +89,7 @@ df_best_features = pd.DataFrame.from_dict(D)
 
 
 
-save_output.function_save_output(df_best_features, dim_reduction, name)
+save_output.function_save_output(df_best_features, name_clf, name_scaler, name_dim_red, best_or_def_HP)
 
 
 
