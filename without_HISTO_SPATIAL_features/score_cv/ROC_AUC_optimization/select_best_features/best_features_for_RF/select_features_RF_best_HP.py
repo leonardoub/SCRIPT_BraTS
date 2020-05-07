@@ -16,7 +16,7 @@ from sklearn.metrics import classification_report
 from sklearn.preprocessing import LabelEncoder
 
 name_clf = 'RandomForest'
-name_scaler = 'NONE'
+name_scaler = 'VARIABLE'
 name_dim_red = 'NONE'
 best_or_def_HP= 'BEST_HP'
 
@@ -178,12 +178,11 @@ pipeline_5 = Pipeline(steps_5)
 
 pipeline_list = [pipeline_1, pipeline_2, pipeline_3, pipeline_4, pipeline_5]
 
-D={'CLF_FOLD_1_FEATURES':[], 'FOLD_1_value':[],
-   'CLF_FOLD_2_FEATURES':[], 'FOLD_2_value':[],
-   'CLF_FOLD_3_FEATURES':[], 'FOLD_3_value':[],
-   'CLF_FOLD_4_FEATURES':[], 'FOLD_4_value':[],
-   'CLF_FOLD_5_FEATURES':[], 'FOLD_5_value':[]}
-
+D={'CLF_best_HP_FOLD_1_FEATURES':[], 'FOLD_1_value':[],
+   'CLF_best_HP_FOLD_2_FEATURES':[], 'FOLD_2_value':[],
+   'CLF_best_HP_FOLD_3_FEATURES':[], 'FOLD_3_value':[],
+   'CLF_best_HP_FOLD_4_FEATURES':[], 'FOLD_4_value':[],
+   'CLF_best_HP_FOLD_5_FEATURES':[], 'FOLD_5_value':[]}
 
 # Choose cross-validation techniques for outer loops,
 outer_kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=2)
@@ -206,7 +205,7 @@ for train_index, test_index in outer_kf.split(public_data, labels_encoded):
     important_features = sorted(zip(rank_features, public_data.columns), reverse=True)[:20]
     #ATTENZIONE HA SENSO SOLO SE NON SI FA PCA
     
-    D[f'CLF_FOLD_{i}_FEATURES'] = [item[1] for item in important_features]
+    D[f'CLF_best_HP_FOLD_{i}_FEATURES'] = [item[1] for item in important_features]
     D[f'FOLD_{i}_value'] = [item[0] for item in important_features]
 
 
