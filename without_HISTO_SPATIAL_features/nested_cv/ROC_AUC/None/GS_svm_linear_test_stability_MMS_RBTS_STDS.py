@@ -46,7 +46,7 @@ pipeline = Pipeline(steps)
 
 parameteres_1 = [{'scaler':[MinMaxScaler()], 'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
 
-for j in range(1,2):
+for j in range(1,3):
     results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_1, j*2)
 
     #save best features svm
