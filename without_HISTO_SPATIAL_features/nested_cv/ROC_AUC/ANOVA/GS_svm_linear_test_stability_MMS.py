@@ -29,6 +29,7 @@ dim_reduction = 'ANOVA'
 #load data
 
 public_data, public_labels = load_data.function_load_data()
+tot_features = public_data.columns
 
 #Scalers
 from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler

@@ -52,7 +52,7 @@ for j in range(1,6):
     results, dict_best_estimators = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres, j*2)
 
     #create and save file best features ANOVA
-    save_features_selected_ANOVA.function_save_features_selected_ANOVA(dim_reduction, name, tot_features, dict_best_estimators)
+    save_features_selected_ANOVA.function_save_features_selected_ANOVA(dim_reduction, name, tot_features, dict_best_estimators, j*2)
 
     #create folder and save
     save_output.function_save_output(results, dim_reduction, name, j*2)
@@ -61,5 +61,4 @@ for j in range(1,6):
     
 
 
-save_features_selected_ANOVA.function_save_features_selected_ANOVA(dim_reduction, name, tot_features, dict_best_estimators)
 
