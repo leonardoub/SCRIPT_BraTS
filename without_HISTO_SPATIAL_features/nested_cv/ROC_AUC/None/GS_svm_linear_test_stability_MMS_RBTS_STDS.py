@@ -46,35 +46,39 @@ pipeline = Pipeline(steps)
 
 parameteres_1 = [{'scaler':[MinMaxScaler()], 'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
 
-for j in range(1,3):
+for j in range(1,6):
     results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_1, j*2)
 
     #save best features svm
-    save_features_selected_svm.function_save_features_selected_svm(best_estimators_dict, tot_features, 'svm_lin', 'MMS', 'NONE', 'BEST', j*2)
+    save_features_selected_svm.function_save_features_selected_svm(best_estimators_dict, tot_features, 'svm_lin', 'MMS', 'NONE', 'BEST_HP', j*2)
 
     #create folder and save
     save_output.function_save_output(results, dim_reduction, name_1, j*2)
 
 
-##RBTS
+#RBTS
 
-#parameteres_2 = [{'scaler':[RobustScaler()], 'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
+parameteres_2 = [{'scaler':[RobustScaler()], 'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
 
-#for j in range(1,6):
-#    results = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_2, j*2)
+for j in range(1,6):
+    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_2, j*2)
 
-#    #create folder and save
+    #save best features svm
+    save_features_selected_svm.function_save_features_selected_svm(best_estimators_dict, tot_features, 'svm_lin', 'RBTS', 'NONE', 'BEST_HP', j*2)
 
-#    save_output.function_save_output(results, dim_reduction, name_2, j*2)
+    #create folder and save
+    save_output.function_save_output(results, dim_reduction, name_2, j*2)
 
 
 #STDS
 
-#parameteres_3 = [{'scaler':[StandardScaler()], 'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
+parameteres_3 = [{'scaler':[StandardScaler()], 'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
 
-#for j in range(1,6):
-#    results = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_3, j*2)
+for j in range(1,6):
+    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_3, j*2)
 
-#    #create folder and save
+    #save best features svm
+    save_features_selected_svm.function_save_features_selected_svm(best_estimators_dict, tot_features, 'svm_lin', 'STDS', 'NONE', 'BEST_HP', j*2)
 
-#    save_output.function_save_output(results, dim_reduction, name_3, j*2)
+    #create folder and save
+    save_output.function_save_output(results, dim_reduction, name_3, j*2)
