@@ -32,7 +32,7 @@ scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 # Designate distributions to sample hyperparameters from 
 n_tree = [10, 30, 50, 70, 100, 250, 500, 1000]
 depth = [3, 6, 10, 25, 50, 75]
-lr = [0.001, 0.01, 0.1, 0.50, 1.0]
+lr = [0.01, 0.1, 0.50, 1.0]
 
 
 #RandomForestClassifier
@@ -47,8 +47,9 @@ parameteres = [{'scaler':scalers_to_test, 'clf__learning_rate':lr,
 
 
 
-results = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres)
+for j in range(1,6):
+    results = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres, j*2)
 
-#create folder and save
+    #create folder and save
 
-save_output.function_save_output(results, dim_reduction, name)
+    save_output.function_save_output(results, dim_reduction, name, j*2)

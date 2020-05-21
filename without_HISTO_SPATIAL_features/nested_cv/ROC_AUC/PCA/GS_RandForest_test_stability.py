@@ -32,7 +32,7 @@ scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 
 # Designate distributions to sample hyperparameters from 
 n_features_to_test = [0.85, 0.9, 0.95]
-n_tree = [10, 30, 50, 70, 100, 250, 500, 1000]
+n_tree = [10, 30, 50, 70, 100, 250]
 depth = [10, 25, 50, 75, 100, None]
 
 #RandomForestClassifier
@@ -41,7 +41,6 @@ steps = [('scaler', StandardScaler()), ('red_dim', PCA()), ('clf', RandomForestC
 pipeline = Pipeline(steps)
 
 parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test),
-                'red_dim__whiten':[False, True], 
                 'clf__n_estimators':list(n_tree), 'clf__criterion':['gini', 'entropy'], 
                 'clf__max_depth':depth, 'clf__min_samples_split':[2, 5, 10], 
                 'clf__min_samples_leaf':[1, 2, 4], 'clf__class_weight':[None, 'balanced']}]

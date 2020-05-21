@@ -33,7 +33,7 @@ scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 
 # Designate distributions to sample hyperparameters from 
 n_estimators = [10, 30, 50, 70, 100, 150]
-lr = [0.001, 0.01, 0.1, 0.50, 1.0]
+lr = [0.01, 0.1, 0.50, 1.0]
 
 
 #AdaBoost
@@ -47,10 +47,10 @@ parameteres = [{'scaler':scalers_to_test,
               'clf__n_estimators':n_estimators, 'clf__learning_rate':lr, 'clf__algorithm':['SAMME', 'SAMME.R']}]
 
 
+for j in range(1,6):
+    results = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres, j*2)
 
-results = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres)
+    #create folder and save
 
-#create folder and save
-
-save_output.function_save_output(results, dim_reduction, name)
+    save_output.function_save_output(results, dim_reduction, name, j*2)
 

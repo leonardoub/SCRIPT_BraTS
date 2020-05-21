@@ -16,10 +16,12 @@ import load_data
 import save_output
 import nested_cv
 
+
 name_1 = 'svm_lin_MMS'
 name_2 = 'svm_lin_RBTS'
 name_3 = 'svm_lin_STDS'
-dim_reduction = 'NONE'
+dim_reduction = 'PCA'
+
 
 #load data
 
@@ -31,17 +33,20 @@ scalers_to_test = [RobustScaler(), MinMaxScaler()]
 
 #Designate distributions to sample hyperparameters from 
 C_range = np.power(2, np.arange(-10, 11, dtype=float))
-n_features_to_test = np.arange(1,11)
+n_features_to_test = [0.85, 0.9, 0.95]
+
 
 #SVM
-steps = [('scaler', MinMaxScaler()), ('clf', SVC(kernel='linear', random_state=503, probability=True))]
+steps = [('scaler', MinMaxScaler()), ('red_dim', PCA()), ('clf', SVC(kernel='linear', probability=True, random_state=503))]
 
 pipeline = Pipeline(steps)
 
+
+
 #MMS
-
-parameteres_1 = [{'scaler':[MinMaxScaler()], 'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
-
+parameteres_1 = [{'scaler':[MinMaxScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
+              'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
+              
 results_1 = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_1)
 
 #create folder and save
@@ -49,10 +54,11 @@ results_1 = nested_cv.function_nested_cv(public_data, public_labels, pipeline, p
 save_output.function_save_output(results_1, dim_reduction, name_1)
 
 
+
 #RBTS
-
-parameteres_2 = [{'scaler':[RobustScaler()], 'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
-
+parameteres_2 = [{'scaler':[RobustScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
+              'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
+              
 results_2 = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_2)
 
 #create folder and save
@@ -60,10 +66,11 @@ results_2 = nested_cv.function_nested_cv(public_data, public_labels, pipeline, p
 save_output.function_save_output(results_2, dim_reduction, name_2)
 
 
+
 #STDS
-
-parameteres_3 = [{'scaler':[StandardScaler()], 'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
-
+parameteres_3 = [{'scaler':[StandardScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
+              'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
+              
 results_3 = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_3)
 
 #create folder and save

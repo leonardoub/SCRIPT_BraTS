@@ -35,7 +35,7 @@ scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 # Designate distributions to sample hyperparameters from 
 n_features_to_test = [10]
 n_estimators = [10, 30, 50, 70, 100, 150]
-lr = [0.001, 0.01, 0.1, 0.50, 1.0]
+lr = [0.01, 0.1, 0.50, 1.0]
 
 #AdaBoost
 steps = [('scaler', MinMaxScaler()), ('red_dim', SelectPercentile(f_classif, percentile=10)), ('clf', AdaBoostClassifier(random_state=503))]

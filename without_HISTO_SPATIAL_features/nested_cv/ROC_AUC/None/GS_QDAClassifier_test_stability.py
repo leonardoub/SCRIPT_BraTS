@@ -37,8 +37,9 @@ pipeline = Pipeline(steps)
 parameteres = [{'scaler':scalers_to_test}]
 
 
-results = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres)
+for j in range(1,6):
+    results = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres, j*2)
 
-#create folder and save
+    #create folder and save
 
-save_output.function_save_output(results, dim_reduction, name)
+    save_output.function_save_output(results, dim_reduction, name, j*2)

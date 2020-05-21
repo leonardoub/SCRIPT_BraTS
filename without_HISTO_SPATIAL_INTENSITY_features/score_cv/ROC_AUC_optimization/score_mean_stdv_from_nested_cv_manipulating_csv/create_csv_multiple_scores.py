@@ -11,7 +11,7 @@ import os
 import pandas as pd
 
 
-path = '/home/leonardo/Scrivania/result_brats/result_CV/nested_CV/data_without_HISTO_SPATIAL/ROC_AUC_optimization/*/*.csv'
+path = '/home/leonardo/Scrivania/result_brats/result_CV/nested_CV/data_without_HISTO_SPATIAL_INTENSITY/ROC_AUC_optimization/*/*.csv'
 
 
 
@@ -46,14 +46,16 @@ for name in sorted(glob.glob(path)):
               
 df = pd.DataFrame(my_dict, index=clf_list)
 
-outname = f'summary_scores_all_HP_sets_without_HISTO_SPATIAL.csv'
 
-outdir = f'/home/leonardo/Scrivania/result_brats/score_ROC_AUC_optimization_using_all_HP_sets_USING_MEAN/data_without_HISTO_SPATIAL/'
+outname = f'summary_scores_all_HP_sets_without_HISTO_SPATIAL_INTENSITY.csv'
+
+outdir = f'/home/leonardo/Scrivania/result_brats/score_ROC_AUC_optimization_using_all_HP_sets_USING_MEAN/data_without_HISTO_SPATIAL_INTENSITY/'
 if not os.path.exists(outdir):
     os.makedirs(outdir)
 
     fullname = os.path.join(outdir, outname)    
     df.to_csv(fullname)
+
 
 #
 #a = os.path.split(name)[-1]

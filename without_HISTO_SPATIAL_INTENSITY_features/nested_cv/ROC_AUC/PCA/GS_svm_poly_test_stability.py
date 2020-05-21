@@ -42,7 +42,6 @@ pipeline = Pipeline(steps)
 
 
 parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
-              'red_dim__whiten':[False, True], 
               'clf__C': list(C_range), 'clf__gamma':['auto', 'scale']+list(gamma_range), 'clf__degree':[2, 3], 'clf__class_weight':[None, 'balanced']}]
 
 

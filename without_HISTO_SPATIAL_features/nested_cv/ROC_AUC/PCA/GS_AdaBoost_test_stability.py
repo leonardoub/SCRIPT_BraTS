@@ -32,7 +32,7 @@ scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 # Designate distributions to sample hyperparameters from 
 n_features_to_test = [0.85, 0.9, 0.95]
 n_estimators = [10, 30, 50, 70, 100, 150]
-lr = [0.001, 0.01, 0.1, 0.50, 1.0]
+lr = [0.01, 0.1, 0.50, 1.0]
 
 #AdaBoost
 steps = [('scaler', MinMaxScaler()), ('red_dim', PCA()), ('clf', AdaBoostClassifier(random_state=503))]
@@ -40,7 +40,6 @@ steps = [('scaler', MinMaxScaler()), ('red_dim', PCA()), ('clf', AdaBoostClassif
 pipeline = Pipeline(steps)
 
 parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':n_features_to_test,
-                     'red_dim__whiten':[False, True],
                      'clf__base_estimator': [DecisionTreeClassifier(max_depth = j) for j in range(1,6)],                     
                      'clf__n_estimators':n_estimators, 'clf__learning_rate':lr, 'clf__algorithm':['SAMME', 'SAMME.R']}]
 

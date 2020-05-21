@@ -35,7 +35,7 @@ scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 
 # Designate distributions to sample hyperparameters from 
 n_features_to_test = [0.85, 0.9, 0.95]
-n_tree = [10, 30, 50, 70, 100, 250, 500, 1000]
+n_tree = [10, 30, 50, 70, 100, 250]
 depth = [10, 25, 50, 75, 100, None]
 
 #RandomForestClassifier

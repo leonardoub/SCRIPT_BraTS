@@ -38,7 +38,7 @@ steps = [('scaler', MinMaxScaler()), ('red_dim', PCA()), ('clf', KNeighborsClass
 pipeline = Pipeline(steps)
 
 parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':n_features_to_test, 
-              'red_dim__whiten':[False, True], 'clf__n_neighbors':k, 
+              'clf__n_neighbors':k, 
               'clf__weights':['uniform', 'distance'], 'clf__algorithm':['auto', 'ball_tree', 'kd_tree', 'brute']}]
 
 

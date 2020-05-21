@@ -40,7 +40,7 @@ steps = [('scaler', StandardScaler()), ('red_dim', PCA()), ('clf', SVC(kernel='s
 pipeline = Pipeline(steps)
 
 
-parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':n_features_to_test, 'red_dim__whiten':[False, True],
+parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':n_features_to_test, 
               'clf__C': list(C_range), 'clf__gamma':['auto', 'scale']+list(gamma_range), 'clf__class_weight':[None, 'balanced']}]
 
 results = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres)
