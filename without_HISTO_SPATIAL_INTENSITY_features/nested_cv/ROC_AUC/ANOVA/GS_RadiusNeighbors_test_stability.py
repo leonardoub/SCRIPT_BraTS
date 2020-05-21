@@ -25,6 +25,7 @@ dim_reduction = 'ANOVA'
 #load data
 
 public_data, public_labels = load_data.function_load_data()
+tot_features = public_data.columns
 
 #Scalers
 
@@ -46,14 +47,13 @@ parameteres = [{'scaler':scalers_to_test,
                      'clf__weights':['uniform', 'distance'], 'clf__algorithm':['auto', 'ball_tree', 'kd_tree', 'brute']}]
 
 
-results, dict_best_estimators = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres)
 
-#create and save file best features ANOVA
+for j in range(1,6):
+    results, dict_best_estimators = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres, j*2)
 
-tot_features = public_data.columns
-save_features_selected_ANOVA.function_save_features_selected_ANOVA(dim_reduction, name, tot_features, dict_best_estimators)
+    #create and save file best features ANOVA
+    save_features_selected_ANOVA.function_save_features_selected_ANOVA(dim_reduction, name, tot_features, dict_best_estimators, j*2)
 
-#create folder and save
-
-save_output.function_save_output(results, dim_reduction, name)
+    #create folder and save
+    save_output.function_save_output(results, dim_reduction, name, j*2)
 

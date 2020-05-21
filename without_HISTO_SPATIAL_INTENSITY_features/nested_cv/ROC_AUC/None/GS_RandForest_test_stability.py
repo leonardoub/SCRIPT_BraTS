@@ -16,6 +16,7 @@ from sklearn.ensemble import RandomForestClassifier
 import load_data
 import save_output
 import nested_cv
+import save_features_selected_RF
 
 name = 'RandomForest'
 dim_reduction = 'NONE'
@@ -23,6 +24,7 @@ dim_reduction = 'NONE'
 #load data
 
 public_data, public_labels = load_data.function_load_data()
+tot_features = public_data.columns
 
 #Scalers
 
@@ -46,8 +48,11 @@ parameteres = [{'scaler':scalers_to_test,
 
 
 
-results = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres)
+for j in range(1,6):
+    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres, j*2)
 
-#create folder and save
+    #save best features svm
+    save_features_selected_RF.function_save_features_selected_RF(best_estimators_dict, tot_features, name, 'VARIABLE', 'NONE', 'BEST_HP', j*2)
 
-save_output.function_save_output(results, dim_reduction, name)
+    #create folder and save
+    save_output.function_save_output(results, dim_reduction, name, j*2)

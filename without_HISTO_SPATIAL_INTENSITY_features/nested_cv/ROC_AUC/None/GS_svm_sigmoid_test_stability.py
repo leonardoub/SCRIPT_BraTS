@@ -47,10 +47,11 @@ parameteres = [{'scaler':scalers_to_test,
               'clf__C': list(C_range), 'clf__gamma':['auto', 'scale']+list(gamma_range), 
               'clf__class_weight':[None, 'balanced']}]
 
-results = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres)
+for j in range(1,6):
+    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres, j*2)
 
-#create folder and save
+    #create folder and save
 
-save_output.function_save_output(results, dim_reduction, name)
+    save_output.function_save_output(results, dim_reduction, name, j*2)
 
 

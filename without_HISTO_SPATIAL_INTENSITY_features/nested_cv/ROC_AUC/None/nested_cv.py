@@ -5,9 +5,10 @@ import pandas as pd
 
 
 
-def function_nested_cv(data, labels, pipel, grid_params):
+def function_nested_cv(data, labels, pipel, grid_params, rs_outer_kf):
 
     df = pd.DataFrame()
+    best_est_dict = {}
 
 
     i = 0
@@ -20,7 +21,7 @@ def function_nested_cv(data, labels, pipel, grid_params):
     # independently of the dataset.
     # E.g "GroupKFold", "LeaveOneOut", "LeaveOneGroupOut", etc.
     inner_kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=1)
-    outer_kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=2)
+    outer_kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=rs_outer_kf)
 
 
     # Looping through the outer loop, feeding each training set into a GSCV as the inner loop
@@ -45,7 +46,7 @@ def function_nested_cv(data, labels, pipel, grid_params):
 
 
         #per far uscire i best_estimators in qualche modo
-        #best_est_dict.update({f'best_est_{i}' : GSCV.best_estimator_})
+        best_est_dict.update({f'best_est_{i}' : GSCV.best_estimator_})
 
        
         # Appending the "winning" hyper parameters and their associated accuracy score
@@ -71,10 +72,10 @@ def function_nested_cv(data, labels, pipel, grid_params):
 
         bp['random_state_clf'] = 503
         bp['random_state_inner_kf'] = 1
-        bp['random_state_outer_kf'] = 2
+        bp['random_state_outer_kf'] = rs_outer_kf
 
         df = df.append(bp, ignore_index=True)
 
 
 
-    return df
+    return df, best_est_dict

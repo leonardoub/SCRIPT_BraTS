@@ -32,10 +32,10 @@ from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler
 scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 
 # Designate distributions to sample hyperparameters from 
-n_tree = [10, 30, 50, 70, 100, 250]
+n_tree = [10, 30, 50, 70, 100, 250, 500, 1000]
 depth = [3, 6, 10, 25, 50, 75]
 lr = [0.01, 0.1, 0.50, 1.0]
-n_features_to_test = [0.85, 0.9, 0.95]
+n_features_to_test = [10]
 
 
 #RandomForestClassifier
