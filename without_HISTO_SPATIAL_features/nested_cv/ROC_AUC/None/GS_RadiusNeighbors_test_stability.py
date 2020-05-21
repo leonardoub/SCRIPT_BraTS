@@ -47,7 +47,7 @@ parameteres = [{'scaler':scalers_to_test, 'clf__radius':R,
 
 
 for j in range(1,6):
-    results = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres, j*2)
+    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres, j*2)
 
     #create folder and save
 
