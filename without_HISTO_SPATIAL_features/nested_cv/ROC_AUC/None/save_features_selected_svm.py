@@ -31,13 +31,13 @@ def function_save_features_selected_svm(best_est_dictionary, features, name_clf,
 
         #save best features
 
-        df_best_features = pd.DataFrame.from_dict(D)
+    df_best_features = pd.DataFrame.from_dict(D)
 
-        outname = f'features_importance_for_{name_clf}_scaler_{scaler}_dim_red_{dimensionality_reduction}_{best_or_default_HP}_RSoKF_{rs_outer_kf}.csv'
+    outname = f'features_importance_for_{name_clf}_scaler_{scaler}_dim_red_{dimensionality_reduction}_{best_or_default_HP}_RSoKF_{rs_outer_kf}.csv'
 
-        outdir = f'/home/users/ubaldi/TESI_BRATS/important_features/data_without_HISTO_SPATIAL/score_ROC_AUC_optimization /best_feature_importances_for_{name_clf}'
-        if not os.path.exists(outdir):
-            os.makedirs(outdir)
+    outdir = f'/home/users/ubaldi/TESI_BRATS/important_features/data_without_HISTO_SPATIAL/score_ROC_AUC_optimization /best_feature_importances_for_{name_clf}'
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
 
-        fullname = os.path.join(outdir, outname)    
-        df_best_features.to_csv(fullname)
+    fullname = os.path.join(outdir, outname)    
+    df_best_features.to_csv(fullname)
