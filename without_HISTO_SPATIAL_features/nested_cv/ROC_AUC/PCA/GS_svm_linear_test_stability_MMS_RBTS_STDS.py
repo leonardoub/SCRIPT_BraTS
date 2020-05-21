@@ -47,11 +47,12 @@ pipeline = Pipeline(steps)
 parameteres_1 = [{'scaler':[MinMaxScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
               'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
               
-results_1 = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_1)
+for j in range(1,6):
+    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_1, j*2)
 
-#create folder and save
+    #create folder and save
 
-save_output.function_save_output(results_1, dim_reduction, name_1)
+    save_output.function_save_output(results, dim_reduction, name_1, j*2)
 
 
 
@@ -59,11 +60,12 @@ save_output.function_save_output(results_1, dim_reduction, name_1)
 parameteres_2 = [{'scaler':[RobustScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
               'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
               
-results_2 = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_2)
+for j in range(1,6):
+    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_2, j*2)
 
-#create folder and save
+    #create folder and save
 
-save_output.function_save_output(results_2, dim_reduction, name_2)
+    save_output.function_save_output(results, dim_reduction, name_2, j*2)
 
 
 
@@ -71,8 +73,9 @@ save_output.function_save_output(results_2, dim_reduction, name_2)
 parameteres_3 = [{'scaler':[StandardScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
               'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
               
-results_3 = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_3)
+for j in range(1,6):
+    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_3, j*2)
 
-#create folder and save
+    #create folder and save
 
-save_output.function_save_output(results_3, dim_reduction, name_3)
+    save_output.function_save_output(results, dim_reduction, name_3, j*2)
