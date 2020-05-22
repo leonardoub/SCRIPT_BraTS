@@ -19,7 +19,7 @@ def function_save_features_selected_svm(best_est_dictionary, features, name_clf,
 
         rank_features = value.named_steps["clf"].coef_
         rank_features_T = rank_features.T
-        rank_features_T_bis = rank_features_T.reshape(575,)
+        rank_features_T_bis = rank_features_T.reshape(551,)
         rank_features_T_ter = np.absolute(rank_features_T_bis)
         
         
