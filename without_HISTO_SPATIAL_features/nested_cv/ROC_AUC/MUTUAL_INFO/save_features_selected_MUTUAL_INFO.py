@@ -5,19 +5,18 @@ def function_save_features_selected_MUTUAL_INFO(dimensionality_reduction, name_c
 
     i=0
 
-
-    D={'FOLD_1_MUTUAL_INFO':[], 'FOLD_1_p_value':[],
-       'FOLD_2_MUTUAL_INFO':[], 'FOLD_2_p_value':[],
-       'FOLD_3_MUTUAL_INFO':[], 'FOLD_3_p_value':[],
-       'FOLD_4_MUTUAL_INFO':[], 'FOLD_4_p_value':[],
-       'FOLD_5_MUTUAL_INFO':[], 'FOLD_5_p_value':[]}
+    D={'FOLD_1_MUTUAL_INFO_FEATURES':[], 'FOLD_1_value':[],
+       'FOLD_2_MUTUAL_INFO_FEATURES':[], 'FOLD_2_value':[],
+       'FOLD_3_MUTUAL_INFO_FEATURES':[], 'FOLD_3_value':[],
+       'FOLD_4_MUTUAL_INFO_FEATURES':[], 'FOLD_4_value':[],
+       'FOLD_5_MUTUAL_INFO_FEATURES':[], 'FOLD_5_value':[]}
 
 
     for key, value in best_est_dictionary.items():
         
         i+=1
         
-        p_values = value.named_steps['red_dim'].pvalues_
+        p_values = value.named_steps['red_dim'].scores_
         mask_percentile = value.named_steps['red_dim'].get_support()
         
         
