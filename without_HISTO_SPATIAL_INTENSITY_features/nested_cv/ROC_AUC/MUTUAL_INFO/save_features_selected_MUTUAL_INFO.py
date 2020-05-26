@@ -17,28 +17,12 @@ def function_save_features_selected_MUTUAL_INFO(dimensionality_reduction, name_c
         
         i+=1
         
-        print('a')
-
         p_values = value.named_steps['red_dim'].scores_
-        print('b')
-
         mask_percentile = value.named_steps['red_dim'].get_support()
         
-        print('c')
-
-        
-        print('d')
-        print(p_values)
-        print('e')
-        print(mask_percentile)
-
-        print('f')
         
         selected_features = features[mask_percentile]
-        print('g')
-
         selected_p_value = p_values[mask_percentile]
-        print('h')
         
         important_features = sorted(zip(selected_p_value, selected_features), reverse=True)
 

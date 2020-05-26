@@ -14,7 +14,7 @@ import load_data
 import save_output
 import nested_cv
 from sklearn.feature_selection import SelectKBest, SelectPercentile
-from sklearn.feature_selection import f_classif, mutual_info_classif
+from sklearn.feature_selection import f_classif, mutual_info_classif 
 import save_features_selected_MUTUAL_INFO
 
 name = 'LDAClassifier'
@@ -31,7 +31,7 @@ from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler
 scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 
 
-score_func = mutual_info_classif(random_state=5, copy=False)
+score_func = sklearn.feature_selection.mutual_info_classif(random_state=5, copy=False)
 
 
 #LinearDiscriminantAnalysis
