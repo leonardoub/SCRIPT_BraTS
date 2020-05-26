@@ -31,11 +31,10 @@ from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler
 scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 
 
-score_func = mutual_info_classif(random_state=5)
 
 
 #LinearDiscriminantAnalysis
-steps = [('scaler', MinMaxScaler()), ('red_dim', SelectPercentile(score_func, percentile=10)), ('clf', LinearDiscriminantAnalysis())]
+steps = [('scaler', MinMaxScaler()), ('red_dim', SelectPercentile(mutual_info_classif, percentile=10, random_state=5), ('clf', LinearDiscriminantAnalysis())]
 
 pipeline = Pipeline(steps)
 
