@@ -34,7 +34,7 @@ scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 
 
 #LinearDiscriminantAnalysis
-steps = [('scaler', MinMaxScaler()), ('red_dim', SelectPercentile(mutual_info_classif, percentile=10, random_state=5)), ('clf', LinearDiscriminantAnalysis())]
+steps = [('scaler', MinMaxScaler()), ('red_dim', SelectPercentile(mutual_info_classif, percentile=10)), ('clf', LinearDiscriminantAnalysis())]
 
 pipeline = Pipeline(steps)
 
