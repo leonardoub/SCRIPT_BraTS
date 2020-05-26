@@ -39,6 +39,8 @@ n_features_to_test = [10]
 n_estimators = [10, 30, 50, 70, 100, 150]
 lr = [0.01, 0.1, 0.50, 1.0]
 
+score_func = mutual_info_classif
+
 #AdaBoost
 steps = [('scaler', MinMaxScaler()), ('red_dim', SelectPercentile(mutual_info_classif, percentile=10)), ('clf', AdaBoostClassifier(random_state=503))]
 
