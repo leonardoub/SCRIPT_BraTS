@@ -17,7 +17,7 @@ def function_save_features_selected_MUTUAL_INFO(dimensionality_reduction, name_c
         
         i+=1
         
-        p_values = value.named_steps['red_dim'].scores_
+        p_values = value.named_steps['red_dim'].scores_[0]
         mask_percentile = value.named_steps['red_dim'].get_support()
         
         
