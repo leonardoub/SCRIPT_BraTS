@@ -35,7 +35,7 @@ score_func = sklearn.feature_selection.mutual_info_classif(random_state=5, copy=
 
 
 #LinearDiscriminantAnalysis
-steps = [('scaler', MinMaxScaler()), ('red_dim', SelectPercentile(score_func, percentile=10)), ('clf', LinearDiscriminantAnalysis())]
+steps = [('scaler', MinMaxScaler()), ('red_dim', SelectKBest(score_func, k=20), ('clf', LinearDiscriminantAnalysis())]
 
 pipeline = Pipeline(steps)
 
