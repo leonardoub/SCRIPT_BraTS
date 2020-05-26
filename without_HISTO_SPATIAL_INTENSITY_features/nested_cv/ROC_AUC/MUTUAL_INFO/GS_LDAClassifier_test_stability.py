@@ -31,7 +31,7 @@ from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler
 scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
 
 
-score_func = mutual_info_classif(random_state=5)
+score_func = mutual_info_classif(random_state=5, copy=False)
 
 
 #LinearDiscriminantAnalysis
