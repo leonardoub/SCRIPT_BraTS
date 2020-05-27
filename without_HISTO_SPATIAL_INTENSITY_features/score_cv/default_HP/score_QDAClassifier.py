@@ -25,18 +25,18 @@ import save_output
 
 public_data, public_labels = load_data.function_load_data()
 
-def create_score_csv_default_HP(scaler_):
+def create_score_csv_default_HP(scaler_, RS_outer_KF):
 
 
     n_comp_pca = None
     #whiten_ = False
     random_state_clf = 'not_present'
     #random_state_PCA = 42
-    random_state_outer_kf = 2
+    #random_state_outer_kf = RS_outer_KF
 
 
     dict_best_params = {'SCALER':[scaler_], 'PCA__n_components':[n_comp_pca], 
-                        'CLF__random_state':[random_state_clf], 'random_state_outer_kf':[random_state_outer_kf]}
+                        'CLF__random_state':[random_state_clf], 'random_state_outer_kf':[RS_outer_KF]}
 
 
 
@@ -51,21 +51,23 @@ def create_score_csv_default_HP(scaler_):
     pipeline = Pipeline(steps)
 
 
-    df_score_value, df_mean_std = score_cv.function_score_cv(public_data, public_labels, pipeline)
+    df_score_value, df_mean_std = score_cv.function_score_cv(public_data, public_labels, pipeline, RS_outer_KF)
     df_tot = pd.concat([df_best_params, df_score_value, df_mean_std], axis=1, ignore_index=False)
 
 
     return df_tot
 
 
-df_MMS = create_score_csv_default_HP(MinMaxScaler())
-save_output.function_save_output(df_MMS, 'MMS', name)
+for j in range(1,6):
 
-df_STDS = create_score_csv_default_HP(StandardScaler())
-save_output.function_save_output(df_STDS, 'STDS', name)
+    df_MMS = create_score_csv_default_HP(MinMaxScaler(), 2*j)
+    save_output.function_save_output(df_MMS, 'MMS', name, 2*j)
 
-df_RBT = create_score_csv_default_HP(RobustScaler())
-save_output.function_save_output(df_RBT, 'RBT', name)
+    df_STDS = create_score_csv_default_HP(StandardScaler(), 2*j)
+    save_output.function_save_output(df_STDS, 'STDS', name, 2*j)
 
-df_NONE = create_score_csv_default_HP(None)
-save_output.function_save_output(df_NONE, 'NONE', name)
+    df_RBT = create_score_csv_default_HP(RobustScaler(), 2*j)
+    save_output.function_save_output(df_RBT, 'RBT', name, 2*j)
+
+    df_NONE = create_score_csv_default_HP(None, 2*j)
+    save_output.function_save_output(df_NONE, 'NONE', name, 2*j)
