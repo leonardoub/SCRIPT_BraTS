@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 
-def function_score_cv(data, labels, pipel):
+def function_score_cv(data, labels, pipel, RS_o_KF):
 
     tot_train_acc = []
     tot_test_acc = []
@@ -21,7 +21,7 @@ def function_score_cv(data, labels, pipel):
     labels_encoded = encoder.fit_transform(labels)
 
     # Choose cross-validation techniques for the inner and outer loops,
-    outer_kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=2)
+    outer_kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=RS_o_KF)
 
 
     # Looping through the outer loop
