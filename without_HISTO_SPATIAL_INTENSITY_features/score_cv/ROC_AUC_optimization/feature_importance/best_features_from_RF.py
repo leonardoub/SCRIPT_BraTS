@@ -14,7 +14,7 @@ import pandas as pd
 
 for j in range(1,6):
 
-    path = f'/home/leonardo/Scrivania/result_brats/important_features_05_24/data_without_HISTO_SPATIAL_INTENSITY/score_ROC_AUC_optimization /best_feature_importances_for_RandomForest/features_importance_for_RandomForest_scaler_VARIABLE_dim_red_NONE_BEST_HP_RSoKF_{2*j}.csv'
+    path = f'/home/leonardo/Scrivania/result_brats/05_30/important_features_05_30/data_without_HISTO_SPATIAL_INTENSITY/score_ROC_AUC_optimization /best_feature_importances_for_RandomForest/features_importance_for_RandomForest_scaler_VARIABLE_dim_red_NONE_BEST_HP_RSoKF_{2*j}.csv'
 
   
     data = pd.read_csv(path) 
@@ -44,7 +44,7 @@ for j in range(1,6):
    
     outname = f'summary_feature_RF_RSoKF{2*j}.csv'
     
-    outdir = f'/home/leonardo/Scrivania/result_brats/important_features_05_24/data_without_HISTO_SPATIAL_INTENSITY/score_ROC_AUC_optimization /best_feature_importances_for_RandomForest/RF_summary/'
+    outdir = f'/home/leonardo/Scrivania/result_brats/05_30/important_features_05_30/data_without_HISTO_SPATIAL_INTENSITY/score_ROC_AUC_optimization /best_feature_importances_for_RandomForest/RF_summary/'
     if not os.path.exists(outdir):
         os.makedirs(outdir)
     

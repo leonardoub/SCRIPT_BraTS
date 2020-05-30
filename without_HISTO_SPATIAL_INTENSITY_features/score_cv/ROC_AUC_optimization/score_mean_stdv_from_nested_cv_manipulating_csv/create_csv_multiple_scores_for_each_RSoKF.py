@@ -22,7 +22,7 @@ import pandas as pd
 for i in range(1,6):
 
     
-    path = f'/home/leonardo/Scrivania/result_brats/result_CV_05_24/nested_CV/data_without_HISTO_SPATIAL_INTENSITY/ROC_AUC_optimization/*/RS_outer_KF_{2*i}/*.csv'
+    path = f'/home/leonardo/Scrivania/result_brats/05_30/result_CV_05_30/nested_CV/data_without_HISTO_SPATIAL_INTENSITY/ROC_AUC_optimization/*/RS_outer_KF_{2*i}/*.csv'
     
     
     
@@ -60,7 +60,7 @@ for i in range(1,6):
     
     outname = f'summary_scores_all_HP_sets_without_HISTO_SPATIAL_INTENSITY_RSoKF_{i*2}.csv'
     
-    outdir = f'/home/leonardo/Scrivania/result_brats/score_ROC_AUC_optimization_using_all_HP_sets_USING_MEAN_05_24/data_without_HISTO_SPATIAL_INTENSITY/'
+    outdir = f'/home/leonardo/Scrivania/result_brats/05_30/score_ROC_AUC_optimization_using_all_HP_sets_USING_MEAN_05_30/data_without_HISTO_SPATIAL_INTENSITY/'
     if not os.path.exists(outdir):
         os.makedirs(outdir)
     

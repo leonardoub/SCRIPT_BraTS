@@ -18,7 +18,7 @@ for scaler in scaler_list:
 
         for j in range(1,6):
         
-            path = f'/home/leonardo/Scrivania/result_brats/important_features_05_24/data_without_HISTO_SPATIAL/score_ROC_AUC_optimization/best_feature_importances_for_svm_lin/features_importance_for_svm_lin_scaler_{scaler}_dim_red_NONE_BEST_HP_RSoKF_{2*j}.csv'
+            path = f'/home/leonardo/Scrivania/result_brats/05_30/important_features_05_30/data_without_HISTO_SPATIAL/score_ROC_AUC_optimization /best_feature_importances_for_svm_lin/features_importance_for_svm_lin_scaler_{scaler}_dim_red_NONE_BEST_HP_RSoKF_{2*j}.csv'
             
               
             data = pd.read_csv(path) 
@@ -48,7 +48,7 @@ for scaler in scaler_list:
            
             outname = f'summary_feature_svml_{scaler}_RSoKF_{2*j}.csv'
             
-            outdir = f'/home/leonardo/Scrivania/result_brats/important_features_05_24/data_without_HISTO_SPATIAL/score_ROC_AUC_optimization/best_feature_importances_for_svm_lin/svml_summary_{scaler}/'
+            outdir = f'/home/leonardo/Scrivania/result_brats/05_30/important_features_05_30/data_without_HISTO_SPATIAL/score_ROC_AUC_optimization /best_feature_importances_for_svm_lin/svml_summary_{scaler}/'
             
             if not os.path.exists(outdir):
                 os.makedirs(outdir)

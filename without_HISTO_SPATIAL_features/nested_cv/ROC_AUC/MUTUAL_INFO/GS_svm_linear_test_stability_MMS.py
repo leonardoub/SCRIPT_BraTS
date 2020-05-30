@@ -52,10 +52,10 @@ parameteres_1 = [{'scaler':[MinMaxScaler()],
               'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
               
 for j in range(1,6):
-    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_1, j*2)
+    results, dict_best_estimators = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_1, j*2)
 
     #create and save file best features MUTUAL_INFO
-    save_features_selected_MUTUAL_INFO.function_save_features_selected_MUTUAL_INFO(dim_reduction, name, tot_features, dict_best_estimators, j*2)
+    save_features_selected_MUTUAL_INFO.function_save_features_selected_MUTUAL_INFO(dim_reduction, name_1, tot_features, dict_best_estimators, j*2)
 
  
     #create folder and save
@@ -68,10 +68,10 @@ parameteres_2 = [{'scaler':[RobustScaler()],
               'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
               
 for j in range(1,6):
-    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_2, j*2)
+    results, dict_best_estimators = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_2, j*2)
 
     #create and save file best features MUTUAL_INFO
-    save_features_selected_MUTUAL_INFO.function_save_features_selected_MUTUAL_INFO(dim_reduction, name, tot_features, dict_best_estimators, j*2)
+    save_features_selected_MUTUAL_INFO.function_save_features_selected_MUTUAL_INFO(dim_reduction, name_2, tot_features, dict_best_estimators, j*2)
 
  
     #create folder and save
@@ -84,10 +84,10 @@ parameteres_3 = [{'scaler':[StandardScaler()],
               'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
               
 for j in range(1,6):
-    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_3, j*2)
+    results, dict_best_estimators = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_3, j*2)
 
     #create and save file best features MUTUAL_INFO
-    save_features_selected_MUTUAL_INFO.function_save_features_selected_MUTUAL_INFO(dim_reduction, name, tot_features, dict_best_estimators, j*2)
+    save_features_selected_MUTUAL_INFO.function_save_features_selected_MUTUAL_INFO(dim_reduction, name_3, tot_features, dict_best_estimators, j*2)
 
  
     #create folder and save

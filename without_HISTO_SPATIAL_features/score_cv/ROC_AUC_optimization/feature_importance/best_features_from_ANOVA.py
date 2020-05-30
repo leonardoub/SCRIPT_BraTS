@@ -14,7 +14,7 @@ import pandas as pd
 
 for j in range(1,6):
 
-    path = f'/home/leonardo/Scrivania/result_brats/important_features_05_24/data_without_HISTO_SPATIAL/score_ROC_AUC_optimization/ANOVA_best_features/AdaBoost/AdaBoost_features_selected_ANOVA_RSoKF_{2*j}.csv'
+    path = f'/home/leonardo/Scrivania/result_brats/05_30/important_features_05_30/data_without_HISTO_SPATIAL/score_ROC_AUC_optimization /ANOVA_best_features/AdaBoost/AdaBoost_features_selected_ANOVA_RSoKF_{2*j}.csv'
 
   
     data = pd.read_csv(path) 
@@ -25,7 +25,7 @@ for j in range(1,6):
     
     for i in range(1, 6):
     
-        for name_feat, value in zip(data_1[f'CLF_best_HP_FOLD_{i}_FEATURES'], data_1[f'FOLD_{i}_value']):
+        for name_feat, value in zip(data_1[f'FOLD_{i}_ANOVA_FEATURES'], data_1[f'FOLD_{i}_p_value']):
             
             if name_feat in TOT_DICT:   
                 TOT_DICT[name_feat].append(value)
@@ -44,7 +44,7 @@ for j in range(1,6):
    
     outname = f'summary_feature_RF_RSoKF_{2*j}.csv'
     
-    outdir = f'/home/leonardo/Scrivania/result_brats/important_features_05_24/data_without_HISTO_SPATIAL/score_ROC_AUC_optimization /best_feature_importances_for_RandomForest/RF_summary/'
+    outdir = f'/home/leonardo/Scrivania/result_brats/05_30/important_features_05_30/data_without_HISTO_SPATIAL/score_ROC_AUC_optimization /best_feature_importances_for_RandomForest/RF_summary/'
     if not os.path.exists(outdir):
         os.makedirs(outdir)
     

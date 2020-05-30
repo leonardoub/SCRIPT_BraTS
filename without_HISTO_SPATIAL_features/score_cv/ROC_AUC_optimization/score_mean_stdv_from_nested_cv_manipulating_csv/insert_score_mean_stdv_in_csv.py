@@ -8,7 +8,7 @@ Created on Wed Mar  4 15:42:00 2020
 
 import pandas as pd
 
-path = '/home/leonardo/Scrivania/result_brats/result_CV_05_24/nested_CV/data_without_HISTO_SPATIAL/ROC_AUC_optimization/*/RS_*/*.csv'
+path = '/home/leonardo/Scrivania/result_brats/05_30/result_CV_05_30/nested_CV/data_without_HISTO_SPATIAL/ROC_AUC_optimization/*/RS_*/*.csv'
 
 
 
