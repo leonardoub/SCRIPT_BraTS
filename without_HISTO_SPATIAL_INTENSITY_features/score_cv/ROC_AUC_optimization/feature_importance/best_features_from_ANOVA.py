@@ -39,12 +39,12 @@ for j in range(1,6):
     
     df_rank_best_feat = pd.DataFrame.from_dict(TOT_DICT_SUM, orient='index', columns=['total_score'] )
     
-    df_rank_best_feat_sorted = df_rank_best_feat.sort_values(by='total_score', ascending=False)
+    df_rank_best_feat_sorted = df_rank_best_feat.sort_values(by='total_score', ascending=True)
 
    
-    outname = f'summary_feature_RF_RSoKF_{2*j}.csv'
+    outname = f'summary_feature_ANOVA_RSoKF_{2*j}.csv'
     
-    outdir = f'/home/leonardo/Scrivania/result_brats/05_30/important_features_05_30/data_without_HISTO_SPATIAL_INTENSITY/score_ROC_AUC_optimization /best_feature_importances_for_RandomForest/RF_summary/'
+    outdir = f'/home/leonardo/Scrivania/result_brats/05_30/important_features_05_30/data_without_HISTO_SPATIAL_INTENSITY/score_ROC_AUC_optimization /ANOVA_best_features/AdaBoost/ANOVA_summary'
     if not os.path.exists(outdir):
         os.makedirs(outdir)
     

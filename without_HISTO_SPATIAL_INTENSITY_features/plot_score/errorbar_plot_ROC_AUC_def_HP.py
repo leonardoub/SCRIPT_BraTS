@@ -57,7 +57,7 @@ fig.set_figheight(5)
 
 outname = f'compare_score_features_def_HP_{abbreviation}.png'
 
-outdir = '/home/leonardo/Scrivania/scrittura_TESI/img/original/without_HISTO_SPATIAL_INTENSITY/'
+outdir = '/home/leonardo/Scrivania/scrittura_TESI/img/original/without_HISTO_SPATIAL_INTENSITY/RSoKF_2/'
 if not os.path.exists(outdir):
     os.makedirs(outdir)
 
