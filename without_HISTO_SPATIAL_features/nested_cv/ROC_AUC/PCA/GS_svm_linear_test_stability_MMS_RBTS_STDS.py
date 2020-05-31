@@ -41,32 +41,32 @@ steps = [('scaler', MinMaxScaler()), ('red_dim', PCA()), ('clf', SVC(kernel='lin
 
 pipeline = Pipeline(steps)
 
-#
-#
-##MMS
-#parameteres_1 = [{'scaler':[MinMaxScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
-#              'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
-#              
-#for j in range(1,6):
-#    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_1, j*2)
-#
-#    #create folder and save
-#
-#    save_output.function_save_output(results, dim_reduction, name_1, j*2)
-#
-#
-#
-##RBTS
-#parameteres_2 = [{'scaler':[RobustScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
-#              'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
-#              
-#for j in range(1,6):
-#    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_2, j*2)
-#
-#    #create folder and save
-#
-#    save_output.function_save_output(results, dim_reduction, name_2, j*2)
-#
+
+
+#MMS
+parameteres_1 = [{'scaler':[MinMaxScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
+              'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
+              
+for j in range(1,6):
+    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_1, j*2)
+
+    #create folder and save
+
+    save_output.function_save_output(results, dim_reduction, name_1, j*2)
+
+
+
+#RBTS
+parameteres_2 = [{'scaler':[RobustScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
+              'clf__C':list(C_range), 'clf__class_weight':[None, 'balanced']}]
+              
+for j in range(1,6):
+    results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres_2, j*2)
+
+    #create folder and save
+
+    save_output.function_save_output(results, dim_reduction, name_2, j*2)
+
 
 
 #STDS
