@@ -14,17 +14,20 @@ import numpy as np
 #ROC AUC RSoKF 2
 
 
+name_clf ='SVM_linear'
+
+abbreviation = 'svm_lin'
+
 #score default HP
 path_summary_def_HP_scores_RSoKF_2 = '/home/leonardo/Scrivania/result_brats/05_30/score_ROC_AUC_default_HP_05_30/data_without_HISTO_SPATIAL_INTENSITY/score_default_HP/summary_scores_default_HP_without_HISTO_SPATIAL_INTENSITY_RSoKF_2.csv'
 
 data_def_HP = pd.read_csv(path_summary_def_HP_scores_RSoKF_2, index_col=0) 
 data_roc_auc_def_HP = data_def_HP[['ROC_AUC_TEST_MEAN', 'ROC_AUC_TEST_STD']]
-data_roc_auc_def_HP_ADA = data_roc_auc_def_HP.loc[data_roc_auc_def_HP.index.str.contains('Ada')]
+data_roc_auc_def_HP_ADA = data_roc_auc_def_HP.loc[data_roc_auc_def_HP.index.str.contains(abbreviation)]
 
 data_roc_auc_def_HP_ADA_ordered = data_roc_auc_def_HP_ADA.iloc[np.r_[0, 2, 3, 1]]
 
 
-name_clf='AdaBoost'
 
 x = np.array([1, 2, 3, 4])
 y = data_roc_auc_def_HP_ADA['ROC_AUC_TEST_MEAN'] 
@@ -52,9 +55,9 @@ fig.set_figheight(5)
 #create folder and save
 
 
-outname = f'compare_score_features_def_HP_{name_clf}.png'
+outname = f'compare_score_features_def_HP_{abbreviation}.png'
 
-outdir = '/home/leonardo/Scrivania/scrittura_TESI/img/original'
+outdir = '/home/leonardo/Scrivania/scrittura_TESI/img/original/without_HISTO_SPATIAL_INTENSITY/'
 if not os.path.exists(outdir):
     os.makedirs(outdir)
 

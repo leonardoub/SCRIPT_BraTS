@@ -15,9 +15,10 @@ import numpy as np
 #ROC AUC RSoKF 2
 
 
-name_clf ='SVM_linear_MMS'
+name_clf ='SVM_linear_STDS'
 
-abbreviation = 'svm_lin_MMS'
+abbreviation_best_HP = 'svm_lin_STD'
+abbreviation_def_HP = 'svm_linear'
 
 
 #score best HP
@@ -26,7 +27,7 @@ path_summary_best_HP_scores_RSoKF_2 = '/home/leonardo/Scrivania/result_brats/05_
 
 data_best_HP = pd.read_csv(path_summary_best_HP_scores_RSoKF_2, index_col=0) 
 data_roc_auc_best_HP = data_best_HP[['ROC_AUC_TEST_MEAN', 'ROC_AUC_TEST_STD']]
-data_roc_auc_best_HP_ADA = data_roc_auc_best_HP.loc[data_roc_auc_best_HP.index.str.contains(abbreviation)]
+data_roc_auc_best_HP_ADA = data_roc_auc_best_HP.loc[data_roc_auc_best_HP.index.str.contains(abbreviation_best_HP)]
 data_roc_auc_best_HP_ADA_ordered = data_roc_auc_best_HP_ADA.iloc[np.r_[0:len(data_roc_auc_best_HP_ADA) - 2, -1, -2]]
 
 
@@ -54,7 +55,7 @@ path_summary_def_HP_scores_RSoKF_2 = '/home/leonardo/Scrivania/result_brats/05_3
 
 data_def_HP = pd.read_csv(path_summary_def_HP_scores_RSoKF_2, index_col=0) 
 data_roc_auc_def_HP = data_def_HP[['ROC_AUC_TEST_MEAN', 'ROC_AUC_TEST_STD']]
-data_roc_auc_def_HP_ADA = data_roc_auc_def_HP.loc[data_roc_auc_def_HP.index.str.contains(abbreviation)]
+data_roc_auc_def_HP_ADA = data_roc_auc_def_HP.loc[data_roc_auc_def_HP.index.str.contains(abbreviation_def_HP)]
 data_roc_auc_def_HP_ADA_ordered = data_roc_auc_def_HP_ADA.iloc[np.r_[0, 2, 3, 1]]
 
 
@@ -86,9 +87,9 @@ fig.set_figheight(6)
 #create folder and save
 
 
-outname = f'compare_score_features_best_and_def_HP_{abbreviation}.png'
+outname = f'compare_score_features_best_and_def_HP_{name_clf}.png'
 
-outdir = '/home/leonardo/Scrivania/scrittura_TESI/img/original/2_subplot_best_def_HP'
+outdir = '/home/leonardo/Scrivania/scrittura_TESI/img/original/without_HISTO_SPATIAL_INTENSITY/2_subplot_best_def_HP'
 if not os.path.exists(outdir):
     os.makedirs(outdir)
 
