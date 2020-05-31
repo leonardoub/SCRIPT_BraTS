@@ -30,7 +30,7 @@ tot_features = public_data.columns
 #Scalers
 
 from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler
-scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
+scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler()]
 
 # Designate distributions to sample hyperparameters from 
 C_range = np.power(2, np.arange(-10, 11, dtype=float))

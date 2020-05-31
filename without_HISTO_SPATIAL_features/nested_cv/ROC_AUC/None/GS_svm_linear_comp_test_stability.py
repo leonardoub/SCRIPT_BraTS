@@ -28,7 +28,7 @@ public_data, public_labels = load_data.function_load_data()
 #Scalers
 
 from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler
-scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler(), None]
+scalers_to_test = [StandardScaler(), RobustScaler(), MinMaxScaler()]
 
 
 # Designate distributions to sample hyperparameters from 
