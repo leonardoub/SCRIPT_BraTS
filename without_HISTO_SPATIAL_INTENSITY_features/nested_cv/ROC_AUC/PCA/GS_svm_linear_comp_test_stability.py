@@ -43,7 +43,7 @@ parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA(random_state=42)], 'red
               'clf__C': list(C_range), 'clf__class_weight':[None, 'balanced']}]
 
 
-for j in range(2,6):
+for j in range(3,6):
     results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres, j*2)
 
     #create folder and save
