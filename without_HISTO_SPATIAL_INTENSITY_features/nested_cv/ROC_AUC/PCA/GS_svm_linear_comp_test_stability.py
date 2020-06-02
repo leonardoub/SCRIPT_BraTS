@@ -34,12 +34,12 @@ n_features_to_test = [0.85, 0.9, 0.95]
 
 
 #SVM
-steps = [('scaler', StandardScaler()), ('red_dim', PCA()), ('clf', SVC(kernel='linear', probability=True, random_state=503))]
+steps = [('scaler', MinMaxScaler()), ('red_dim', PCA()), ('clf', SVC(kernel='linear', probability=True, random_state=503))]
 
 pipeline = Pipeline(steps)
 
 
-parameteres = [{'scaler':[RobustScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
+parameteres = [{'scaler':[MinMaxScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
               'clf__C': list(C_range), 'clf__class_weight':[None, 'balanced']}]
 
 
