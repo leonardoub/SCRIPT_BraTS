@@ -39,11 +39,11 @@ steps = [('scaler', StandardScaler()), ('red_dim', PCA()), ('clf', SVC(kernel='l
 pipeline = Pipeline(steps)
 
 
-parameteres = [{'scaler':scalers_to_test, 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
+parameteres = [{'scaler':[RobustScaler()], 'red_dim':[PCA(random_state=42)], 'red_dim__n_components':list(n_features_to_test), 
               'clf__C': list(C_range), 'clf__class_weight':[None, 'balanced']}]
 
 
-for j in range(3,6):
+for j in range(2,6):
     results, best_estimators_dict = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres, j*2)
 
     #create folder and save
