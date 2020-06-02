@@ -21,10 +21,16 @@ for i in range(1,6):
     
     
     my_dict = {'SCALER':[],
+               'ACC_TRAIN_MEAN': [],
+               'ACC_TRAIN_STD': [],
                'ACC_TEST_MEAN': [],
                'ACC_TEST_STD': [], 
+               'BAL_ACC_TRAIN_MEAN': [],
+               'BAL_ACC_TRAIN_STD': [],
                'BAL_ACC_TEST_MEAN': [],
                'BAL_ACC_TEST_STD': [],
+               'ROC_AUC_TRAIN_MEAN': [],
+               'ROC_AUC_TRAIN_STD': [],
                'ROC_AUC_TEST_MEAN': [],
                'ROC_AUC_TEST_STD': []}
     
@@ -40,10 +46,16 @@ for i in range(1,6):
         clf = os.path.split(name)[-1]
         clf = clf[6:-4]
         my_dict['SCALER'].append(data['SCALER'][0])
+        my_dict['ACC_TRAIN_MEAN'].append(data['train_accuracy_MEAN'][0])
+        my_dict['ACC_TRAIN_STD'].append(data['train_accuracy_STD'][0])
         my_dict['ACC_TEST_MEAN'].append(data['test_accuracy_MEAN'][0])
         my_dict['ACC_TEST_STD'].append(data['test_accuracy_STD'][0])
+        my_dict['BAL_ACC_TRAIN_MEAN'].append(data['train_balanced_accuracy_MEAN'][0])
+        my_dict['BAL_ACC_TRAIN_STD'].append(data['train_balanced_accuracy_STD'][0])
         my_dict['BAL_ACC_TEST_MEAN'].append(data['test_balanced_accuracy_MEAN'][0])
         my_dict['BAL_ACC_TEST_STD'].append(data['test_balanced_accuracy_STD'][0])
+        my_dict['ROC_AUC_TRAIN_MEAN'].append(data['train_ROC_AUC_score_MEAN'][0])
+        my_dict['ROC_AUC_TRAIN_STD'].append(data['train_ROC_AUC_score_STD'][0])
         my_dict['ROC_AUC_TEST_MEAN'].append(data['test_ROC_AUC_score_MEAN'][0])
         my_dict['ROC_AUC_TEST_STD'].append(data['test_ROC_AUC_score_STD'][0])
         
