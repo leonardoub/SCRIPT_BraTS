@@ -114,7 +114,7 @@ for scaler_svml in scaler_svml_list:
     ax1.set_xlabel('Features', labelpad=0)
     ax1.set_ylabel('Votes', labelpad=10)
     
-    ax1.set_title(f'Features importance RSoKF {2*i}')
+    ax1.set_title(f'Features importance considering all nested CV performed')
     
     
     #fig.show()

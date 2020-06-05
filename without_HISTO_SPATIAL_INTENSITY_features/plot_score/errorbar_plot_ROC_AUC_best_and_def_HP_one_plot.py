@@ -15,10 +15,10 @@ import numpy as np
 #ROC AUC RSoKF 2
 
 
-name_clf ='svm_lin_MMS '
+name_clf ='svm_sigmoid'
 
-abbreviation_best_HP = 'svm_lin_MMS'
-abbreviation_def_HP = 'default_HP_RFoKF_2_svm_linear_MMS'
+abbreviation_best_HP = 'sigmoid'
+abbreviation_def_HP = 'sigmoid_NONE'
 
 
 #score best HP
@@ -63,7 +63,7 @@ ax1.set_yticks(np.arange(0.5, 1.25, step=0.1))
 ax1.set_xlabel('Dimensionality reduction algorithm', labelpad=10)
 ax1.set_ylabel('ROC AUC score')
 
-ax1.set_title(f'ROC AUC score for optimized pipeline relative to {name_clf} classifier', pad=25)
+#ax1.set_title(f'ROC AUC score for optimized pipeline relative to {name_clf} classifier', pad=25)
 
 
 fig.set_figwidth(7)
