@@ -48,7 +48,7 @@ parameteres = [{'scaler':scalers_to_test,
               'clf__C': list(C_range), 'clf__gamma':['auto', 'scale']+list(gamma_range), 'clf__class_weight':[None, 'balanced']}]
 
 
-for j in range(1,6):
+for j in range(4,5):
     results, dict_best_estimators = nested_cv.function_nested_cv(public_data, public_labels, pipeline, parameteres, j*2)
 
     #create and save file best features ANOVA
