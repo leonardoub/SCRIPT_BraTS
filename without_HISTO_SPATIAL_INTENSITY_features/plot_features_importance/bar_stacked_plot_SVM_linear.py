@@ -97,7 +97,7 @@ for scaler in scaler_list:
             ax1.set_xlabel('Features', labelpad=0)
             ax1.set_ylabel('Votes', labelpad=10)
             
-            ax1.set_title(f'Features SVM linear with {scaler} information RSoKF {2*i}')
+            #ax1.set_title(f'Features SVM linear with {scaler} information RSoKF {2*i}')
             
             
             #fig.show()
@@ -114,7 +114,7 @@ for scaler in scaler_list:
             
             outname = f'bar_stacked_plot_svml_{scaler}.png'
             
-            outdir = f'/home/leonardo/Scrivania/scrittura_TESI/img/original/without_HISTO_SPATIAL_INTENSITY/RSoKF_{2*i}/'
+            outdir = f'/home/leonardo/Scrivania/scrittura_TESI/img/original_create_da_me_python/BRATS/without_HISTO_SPATIAL_INTENSITY/RSoKF_{2*i}/'
             if not os.path.exists(outdir):
                 os.makedirs(outdir)
             

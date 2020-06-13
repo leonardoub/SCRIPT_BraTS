@@ -24,11 +24,11 @@ for i in range(1,6):
     data_1 = data.drop(['Unnamed: 0'], axis=1)  
 
 
-    name_feat_TR_set_1 = list(data['FOLD_1_MUTUAL_INFO_FEATURES'])
-    name_feat_TR_set_2 = list(data['FOLD_2_MUTUAL_INFO_FEATURES'])
-    name_feat_TR_set_3 = list(data['FOLD_3_MUTUAL_INFO_FEATURES'])
-    name_feat_TR_set_4 = list(data['FOLD_4_MUTUAL_INFO_FEATURES'])
-    name_feat_TR_set_5 = list(data['FOLD_5_MUTUAL_INFO_FEATURES'])
+    name_feat_TR_set_1 = list(data['FOLD_1_MUTUAL_INFO_FEATURES'])[:20]
+    name_feat_TR_set_2 = list(data['FOLD_2_MUTUAL_INFO_FEATURES'])[:20]
+    name_feat_TR_set_3 = list(data['FOLD_3_MUTUAL_INFO_FEATURES'])[:20]
+    name_feat_TR_set_4 = list(data['FOLD_4_MUTUAL_INFO_FEATURES'])[:20]
+    name_feat_TR_set_5 = list(data['FOLD_5_MUTUAL_INFO_FEATURES'])[:20]
 
     #creare lista tutti nomi
     #unire liste eliminando gli elementi ripetuti
@@ -95,7 +95,7 @@ for i in range(1,6):
     ax1.set_xlabel('Features', labelpad=0)
     ax1.set_ylabel('Votes', labelpad=10)
     
-    ax1.set_title(f'Features importance mutual information RSoKF {2*i}')
+    #ax1.set_title(f'Features importance mutual information RSoKF {2*i}')
     
     
     #fig.show()
@@ -112,7 +112,7 @@ for i in range(1,6):
     
     outname = f'bar_stacked_plot_MI.png'
     
-    outdir = f'/home/leonardo/Scrivania/scrittura_TESI/img/original/without_HISTO_SPATIAL_INTENSITY/RSoKF_{2*i}/'
+    outdir = f'/home/leonardo/Scrivania/scrittura_TESI/img/original_create_da_me_python/BRATS/without_HISTO_SPATIAL_INTENSITY/RSoKF_{2*i}/'
     if not os.path.exists(outdir):
         os.makedirs(outdir)
     
