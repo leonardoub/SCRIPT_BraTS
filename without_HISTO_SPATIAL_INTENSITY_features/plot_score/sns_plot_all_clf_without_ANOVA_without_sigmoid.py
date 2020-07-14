@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+Created on Wed Jul  8 14:10:07 2020
+
+@author: leonardo
+"""
+
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
 Created on Tue Jun  9 22:44:03 2020
 
 @author: leonardo
@@ -19,8 +27,7 @@ clf = ['Adaboost','Adaboost','Adaboost',
        'KNeighbors','KNeighbors','KNeighbors',
        'Random Forest', 'Random Forest', 'Random Forest',
        'SVM linear', 'SVM linear', 'SVM linear',
-       'SVM RBF','SVM RBF','SVM RBF',
-       'SVM sigmoid','SVM sigmoid','SVM sigmoid'     
+       'SVM RBF','SVM RBF','SVM RBF'   
        ]
 
 
@@ -28,8 +35,7 @@ value = [ 0.93, 0.87, 0.92,
           0.90, 0.85, 0.89,
           0.94, 0.88, 0.94,
           0.89, 0.91, 0.91,
-          0.87, 0.87, 0.89,
-          0.57, 0.91, 0.85         
+          0.87, 0.87, 0.89,       
          ]
 
 std = [ 0.04, 0.04, 0.06, 
@@ -37,10 +43,9 @@ std = [ 0.04, 0.04, 0.06,
         0.03, 0.04, 0.05,
         0.07, 0.06, 0.04,
         0.05, 0.08, 0.03,
-        0.41, 0.07, 0.07
        ] 
 
-dim_red = ['MI', 'PCA', 'NONE']*6
+dim_red = ['MI', 'PCA', 'NONE']*5
 
 yticks=np.arange(0, 1.1, 0.1)
 
@@ -62,7 +67,7 @@ x_coords_sort, y_coords_sort = zip(*sorted(zip(x_coords,y_coords), reverse=False
 ##errors = tips.groupby(['smoker', 'sex']).std()['tip']
 ##colors = ['steelblue']*2 + ['coral']*2 + ['green']*2 + ['red']*2
 
-colors = ['steelblue', 'coral', 'green']*6
+colors = ['steelblue', 'coral', 'green']*5
 
 ax.errorbar(x_coords_sort, y_coords_sort, yerr=std, ecolor=colors, fmt=' ', 
             zorder=-1)
@@ -81,7 +86,7 @@ ax.set_yticks(yticks)
 #create folder and save
 
 
-outname = f'sns_plot_all_clf_without_ANOVA_RSoKF_8.pdf'
+outname = f'sns_plot_all_clf_without_ANOVA_without_sigmoid_RSoKF_8.pdf'
 
 outdir = '/home/leonardo/Scrivania/scrittura_TESI/img/original_create_da_me_python/BRATS/without_HISTO_SPATIAL_INTENSITY/RSoKF_8/'
 if not os.path.exists(outdir):

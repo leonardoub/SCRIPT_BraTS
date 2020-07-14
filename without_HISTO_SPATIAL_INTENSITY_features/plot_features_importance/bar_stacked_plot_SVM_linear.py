@@ -16,6 +16,9 @@ from collections import Counter
 
 scaler_list=['MMS', 'STDS', 'RBTS']
 
+tot_list_name = []
+
+
 for scaler in scaler_list:
 
         for i in range(1,6):
@@ -112,7 +115,7 @@ for scaler in scaler_list:
             
             #create folder and save
             
-            outname = f'bar_stacked_plot_svml_{scaler}.png'
+            outname = f'bar_stacked_plot_svml_{scaler}_RSoKF_{2*i}.pdf'
             
             outdir = f'/home/leonardo/Scrivania/scrittura_TESI/img/original_create_da_me_python/BRATS/without_HISTO_SPATIAL_INTENSITY/RSoKF_{2*i}/'
             if not os.path.exists(outdir):
