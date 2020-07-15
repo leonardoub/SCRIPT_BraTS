@@ -77,7 +77,7 @@ sns_plot = sns.heatmap(max_scores.mean_train_score, annot=True, fmt='.4g')
 
 
 
-outname = f'heatmap_{name_clf}_NONE_TRAIN.pdf'
+outname = f'heatmap_{name_clf}_NONE_TRAIN.png'
 outdir = f'/home/users/ubaldi/TESI_PA/fig_heatmap/BRATS/NONE/'
 
 
@@ -87,7 +87,7 @@ if not os.path.exists(outdir):
 fullname = os.path.join(outdir, outname)    
 
 
-sns_plot.figure.set_size_inches(7,5)
+sns_plot.figure.set_size_inches(9,9)
 sns_plot.figure.tight_layout()
 
 sns_plot.figure.savefig(fullname)
@@ -102,7 +102,7 @@ sns_plot = sns.heatmap(max_scores.mean_test_score, annot=True, fmt='.4g')
 
 
 
-outname = f'heatmap_{name_clf}_NONE_TEST.pdf'
+outname = f'heatmap_{name_clf}_NONE_TEST.png'
 outdir = f'/home/users/ubaldi/TESI_PA/fig_heatmap/BRATS/NONE/'
 
 if not os.path.exists(outdir):
@@ -110,7 +110,7 @@ if not os.path.exists(outdir):
 
 fullname = os.path.join(outdir, outname)    
 
-sns_plot.figure.set_size_inches(7,5)
+sns_plot.figure.set_size_inches(9,9)
 sns_plot.figure.tight_layout()
 
 sns_plot.figure.savefig(fullname)
