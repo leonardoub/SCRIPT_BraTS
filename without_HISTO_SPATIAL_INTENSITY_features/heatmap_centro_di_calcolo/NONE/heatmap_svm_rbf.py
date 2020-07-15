@@ -62,8 +62,8 @@ rf_gridsearch.fit(data, labels)
 df_gridsearch = pd.DataFrame(rf_gridsearch.cv_results_)
 
 
-max_scores = df_gridsearch.groupby(['param_clf__n_estimators', 
-                                    'param_clf__max_depth']).max()
+max_scores = df_gridsearch.groupby(['param_clf__C', 
+                                    'param_clf__gamma']).max()
 
 #TRAIN
 max_scores = max_scores.unstack()[['mean_test_score', 'mean_train_score']]
