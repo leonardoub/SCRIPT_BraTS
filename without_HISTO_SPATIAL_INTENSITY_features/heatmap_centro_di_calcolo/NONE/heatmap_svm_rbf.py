@@ -33,8 +33,8 @@ data, labels = load_data.function_load_data()
 
 
 # Designate distributions to sample hyperparameters from 
-C_range = np.power(2, np.arange(-10, 11, dtype=float))
-gamma_range = np.power(2, np.arange(-10, 11, dtype=float))
+C_range = np.power(2, np.arange(-10, 11, 2, dtype=float))
+gamma_range = np.power(2, np.arange(-10, 11, 2, dtype=float))
 
 
 
@@ -49,7 +49,7 @@ pipeline = Pipeline(steps)
 
 
 
-parameteres = [{'clf__C': list(C_range), 'clf__gamma':['auto', 'scale']+list(gamma_range)}]
+parameteres = [{'clf__C': list(C_range), 'clf__gamma':list(gamma_range)}]
 
 outer_kf = KFold(n_splits=5, shuffle=True, random_state=2)
 
